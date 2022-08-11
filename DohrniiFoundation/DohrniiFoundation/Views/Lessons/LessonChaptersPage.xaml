@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.Lessons.LessonChaptersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:DohrniiFoundation.Controls"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:helper="clr-namespace:DohrniiFoundation.Helpers"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:view="clr-namespace:DohrniiFoundation.Views"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.Lessons"
+    ios:Page.UseSafeArea="False"
+    BackgroundColor="{StaticResource BgColor}">
+    <ContentPage.BindingContext>
+        <vm:LessonChaptersViewModel x:Name="lessonChaptersVM" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,50,0,0" />
+                    <On Platform="Android" Value="0,0,0,0" />
+                </OnPlatform>
+
+            </Grid.Margin>
+            <Label
+                Grid.Row="0"
+                Margin="0,20,0,20"
+                FontSize="18"
+                HorizontalOptions="CenterAndExpand"
+                Style="{DynamicResource lblMonumentBold}"
+                Text="{x:Static resource:DFResources.LessonsText}"
+                TextColor="{DynamicResource DarkText}"
+                TextTransform="Uppercase" />
+            <ImageButton
+                Margin="0,60,0,0"
+                BackgroundColor="Transparent"
+                Command="{Binding BackCommand}"
+                Source="closeChapter.png"
+                VerticalOptions="StartAndExpand" />
+
+            <ScrollView Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Image
+                            Margin="0,-70,0,0"
+                            Aspect="Fill"
+                            HeightRequest="550"
+                            HorizontalOptions="FillAndExpand"
+                            Source="ChaptersBg.png"
+                            VerticalOptions="Start" />
+                        <StackLayout Margin="17,80,0,0">
+                            <Label
+                                FontSize="14"
+                                Style="{DynamicResource lblMonumentRegular}"
+                                Text="{Binding ChapterDetail.Name}"
+                                TextColor="{DynamicResource White}"
+                                TextTransform="Uppercase" />
+                            <Label
+                                Margin="0,10,0,64"
+                                FontSize="22"
+                                Style="{DynamicResource lblMonumentRegular}"
+                                Text="{Binding ChapterDetail.Title}"
+                                TextColor="{DynamicResource White}"
+                                TextTransform="Uppercase" />
+                        </StackLayout>
+                    </Grid>
+                    <Grid
+                        Margin="20,250,16,0"
+                        BackgroundColor="{DynamicResource Transparent}"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="true">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <BoxView BackgroundColor="{DynamicResource Transparent}" WidthRequest="1.5" />
+                        <StackLayout
+                            x:Name="LessonsList"
+                            Grid.Column="1"
+                            BindableLayout.ItemsSource="{Binding ChapterDetail.Lessons}"
+                            HorizontalOptions="FillAndExpand"
+                            Spacing="0"
+                            VerticalOptions="FillAndExpand">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnSpacing="0" RowSpacing="0">
+                                        <BoxView
+                                            Margin="-7.4,0,0,0"
+                                            BackgroundColor="{DynamicResource Transparent}"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="FillAndExpand"
+                                            WidthRequest="1.5" />
+
+                                        <StackLayout
+                                            x:Name="LessonsItem"
+                                            Margin="-3,16,0,0"
+                                            HorizontalOptions="FillAndExpand">
+                                            <Frame
+                                                Padding="20,0,20,0"
+                                                BackgroundColor="{DynamicResource White}"
+                                                BorderColor="{DynamicResource Grey1}"
+                                                CornerRadius="25"
+                                                HasShadow="False"
+                                                HeightRequest="70"
+                                                HorizontalOptions="Fill">
+                                                <Grid>
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label
+                                                            Style="{DynamicResource lblMonumentRegular}"
+                                                            Text="{Binding Title}"
+                                                            TextColor="{Binding TextColor}"
+                                                            VerticalOptions="CenterAndExpand" />
+                                                        <Image
+                                                            HorizontalOptions="EndAndExpand"
+                                                            IsVisible="False"
+                                                            Source="{Binding StatusImg}">
+                                                            <Image.Triggers>
+                                                                <DataTrigger
+                                                                    Binding="{Binding ShowPercentage}"
+                                                                    TargetType="Image"
+                                                                    Value="false">
+                                                                    <Setter Property="IsVisible" Value="True" />
+                                                                </DataTrigger>
+                                                            </Image.Triggers>
+                                                        </Image>
+                                                        <Frame
+                                                            Padding="10,4,10,4"
+                                                            BackgroundColor="{DynamicResource PrimaryColor}"
+                                                            CornerRadius="10"
+                                                            HasShadow="False"
+                                                            HorizontalOptions="EndAndExpand"
+                                                            IsVisible="False"
+                                                            VerticalOptions="CenterAndExpand">
+                                                            <Label
+                                                                FontSize="10"
+                                                                HorizontalTextAlignment="Center"
+                                                                Style="{DynamicResource lblMonumentRegular}"
+                                                                Text="{Binding PercentageComplete}"
+                                                                TextColor="{DynamicResource White}"
+                                                                VerticalTextAlignment="Center" />
+                                                            <Frame.Triggers>
+                                                                <DataTrigger
+                                                                    Binding="{Binding ShowPercentage}"
+                                                                    TargetType="Frame"
+                                                                    Value="True">
+                                                                    <Setter Property="IsVisible" Value="True" />
+                                                                </DataTrigger>
+                                                            </Frame.Triggers>
+
+                                                        </Frame>
+                                                    </StackLayout>
+                                                    <FlexLayout
+                                                        Margin="0,0,0,-65"
+                                                        Padding="0"
+                                                        BindableLayout.ItemsSource="{Binding Classes}"
+                                                        Direction="Row"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        IsVisible="{Binding ShowPercentage}"
+                                                        VerticalOptions="EndAndExpand">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Grid HorizontalOptions="FillAndExpand">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*" />
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <StackLayout
+                                                                        Margin="0"
+                                                                        BackgroundColor="{Binding BorderColor}"
+                                                                        HeightRequest="2"
+                                                                        VerticalOptions="CenterAndExpand"
+                                                                        WidthRequest="{Binding StackWidth}" />
+                                                                    <Frame
+                                                                        Padding="0"
+                                                                        BackgroundColor="{Binding CirckeBGColor}"
+                                                                        BorderColor="{Binding BorderColor}"
+                                                                        CornerRadius="3"
+                                                                        HasShadow="False"
+                                                                        HeightRequest="6"
+                                                                        HorizontalOptions="EndAndExpand"
+                                                                        VerticalOptions="CenterAndExpand"
+                                                                        WidthRequest="6" />
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </FlexLayout>
+                                                </Grid>
+                                            </Frame>
+                                        </StackLayout>
+                                        <Frame
+                                            Margin="-18,16,0,0"
+                                            Padding="8,2,8,2"
+                                            BackgroundColor="{Binding SequenceBG}"
+                                            CornerRadius="10"
+                                            HasShadow="False"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Center">
+                                            <Label
+                                                FontSize="10"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{DynamicResource lblMonumentRegular}"
+                                                Text="{Binding Sequence}"
+                                                TextColor="{DynamicResource White}"
+                                                VerticalTextAlignment="Center" />
+
+                                        </Frame>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                BindingContext="{Binding Source={x:Reference LessonsList}, Path=BindingContext}"
+                                                Command="{Binding LessonSelectedCommand}"
+                                                CommandParameter="{Binding Source={x:Reference LessonsItem}, Path=BindingContext}" />
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+            </ScrollView>
+
+            <view:TabbedView Grid.Row="1" VerticalOptions="EndAndExpand" />
+            <Grid
+                Grid.RowSpan="2"
+                BackgroundColor="{DynamicResource OverlayCore}"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding ShowClasses}"
+                VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Frame
+                    Margin="16,24,16,16"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource White}"
+                    CornerRadius="16"
+                    HasShadow="False"
+                    HorizontalOptions="FillAndExpand"
+                    IsClippedToBounds="True"
+                    VerticalOptions="FillAndExpand">
+                    <Grid RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <StackLayout
+                            Margin="16,0,16,0"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="StartAndExpand">
+                            <StackLayout
+                                Padding="16"
+                                Orientation="Horizontal"
+                                VerticalOptions="StartAndExpand">
+                                <Label
+                                    FontSize="14"
+                                    Style="{DynamicResource lblMonumentRegular}"
+                                    Text="{Binding SelectedLesson.Title}"
+                                    TextColor="{DynamicResource PrimaryColor}"
+                                    VerticalOptions="CenterAndExpand" />
+                                <Frame
+                                    Padding="10,4,10,4"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    CornerRadius="10"
+                                    HasShadow="False"
+                                    HorizontalOptions="EndAndExpand">
+                                    <Label
+                                        FontSize="10"
+                                        HorizontalTextAlignment="Center"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{Binding SelectedLesson.ClassCount}"
+                                        TextColor="{DynamicResource White}"
+                                        VerticalTextAlignment="Center" />
+
+                                </Frame>
+                            </StackLayout>
+                            <FlexLayout
+                                Padding="0"
+                                BindableLayout.ItemsSource="{Binding SelectedLesson.Classes}"
+                                Direction="Row"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="StartAndExpand">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid HorizontalOptions="FillAndExpand">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Margin="0"
+                                                BackgroundColor="{Binding BorderColor}"
+                                                HeightRequest="2"
+                                                VerticalOptions="CenterAndExpand"
+                                                WidthRequest="{Binding StackWidth}" />
+                                            <Frame
+                                                Padding="0"
+                                                BackgroundColor="{Binding CirckeBGColor}"
+                                                BorderColor="{Binding BorderColor}"
+                                                CornerRadius="3"
+                                                HasShadow="False"
+                                                HeightRequest="6"
+                                                HorizontalOptions="EndAndExpand"
+                                                VerticalOptions="CenterAndExpand"
+                                                WidthRequest="6" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+                            <Label
+                                Margin="0,30,0,0"
+                                FontSize="14"
+                                Style="{DynamicResource lblPoppinsSemiBold}"
+                                Text="{x:Static resource:DFResources.InthislessonsText}"
+                                TextColor="{DynamicResource DarkText}" />
+                            <StackLayout
+                                x:Name="ClassList"
+                                Grid.Column="1"
+                                Margin="0,16,0,0"
+                                BindableLayout.ItemsSource="{Binding SelectedLesson.Classes}"
+                                HorizontalOptions="FillAndExpand"
+                                Spacing="0"
+                                VerticalOptions="FillAndExpand">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            x:Name="ClassItem"
+                                            Margin="0,0,0,12"
+                                            ColumnSpacing="0"
+                                            RowSpacing="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Grid.Column="0"
+                                                Orientation="Horizontal"
+                                                Spacing="0">
+                                                <Label
+                                                    FontSize="14"
+                                                    Style="{DynamicResource lblPoppinsMedium}"
+                                                    Text="{Binding Name}"
+                                                    TextColor="{Binding TextColor}" />
+                                                <Label
+                                                    Margin="0,0,10,0"
+                                                    FontSize="14"
+                                                    Style="{DynamicResource lblPoppinsMedium}"
+                                                    Text=":"
+                                                    TextColor="{Binding TextColor}" />
+                                            </StackLayout>
+                                            <Label
+                                                Grid.Column="1"
+                                                FontSize="14"
+                                                Style="{DynamicResource lblPoppinsMedium}"
+                                                Text="{Binding Title}"
+                                                TextColor="{DynamicResource DarkText}" />
+                                            <StackLayout Grid.Column="2" Orientation="Horizontal">
+                                                <Label
+                                                    FontSize="10"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{Binding StatusText}"
+                                                    TextColor="{Binding TextColor}"
+                                                    TextTransform="Uppercase"
+                                                    VerticalOptions="CenterAndExpand" />
+                                                <Image
+                                                    HorizontalOptions="EndAndExpand"
+                                                    IsVisible="False"
+                                                    Source="{Binding StatusImg}"
+                                                    VerticalOptions="CenterAndExpand">
+                                                    <Image.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding ShowStatusImg}"
+                                                            TargetType="Image"
+                                                            Value="true">
+                                                            <Setter Property="IsVisible" Value="True" />
+                                                        </DataTrigger>
+                                                    </Image.Triggers>
+                                                </Image>
+                                            </StackLayout>
+
+                                            <!--<Grid.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                BindingContext="{Binding Source={x:Reference LessonsList}, Path=BindingContext}"
+                                                Command="{Binding LessonSelectedCommand}"
+                                                CommandParameter="{Binding Source={x:Reference LessonsItem}, Path=BindingContext}" />
+                                            </Grid.GestureRecognizers>-->
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                            <Label
+                                Margin="0,18,0,0"
+                                FontSize="14"
+                                Style="{DynamicResource lblPoppinsSemiBold}"
+                                Text="{x:Static resource:DFResources.XPCollectedText}"
+                                TextColor="{DynamicResource DarkText}" />
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <Label
+                                    FontSize="10"
+                                    HorizontalOptions="StartAndExpand"
+                                    Style="{DynamicResource lblMonumentRegular}"
+                                    Text="{Binding SelectedLesson.TotalXPEarned, StringFormat='{}{0}XP'}"
+                                    TextColor="{DynamicResource DarkText80}" />
+                                <Label
+                                    FontSize="10"
+                                    HorizontalOptions="EndAndExpand"
+                                    Style="{DynamicResource lblMonumentRegular}"
+                                    Text="{Binding SelectedLesson.TotalXP, StringFormat='{}{0}XP'}"
+                                    TextColor="{DynamicResource DarkText80}" />
+                            </StackLayout>
+                            <controls:GradientProgressBar
+                                BarBackgroundColor="{StaticResource ProgressBarBgColor}"
+                                CornerRadius="4"
+                                GradientEndColor="{StaticResource LessonXPFirstColor}"
+                                GradientStartColor="{StaticResource LessonContinueFirstColor}"
+                                HeightRequest="8"
+                                Percentage="{Binding SelectedLesson.PercentagePerXPCollected}" />
+                        </StackLayout>
+                        <Frame
+                            Grid.Row="1"
+                            Margin="0,0,0,-1"
+                            Padding="22"
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            HasShadow="False"
+                            VerticalOptions="EndAndExpand">
+                            <Label
+                                FontSize="12"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{DynamicResource lblMonumentRegular}"
+                                Text="{x:Static resource:DFResources.ContinueLessonText}"
+                                TextColor="{DynamicResource White}"
+                                TextDecorations="Underline"
+                                TextTransform="Uppercase" />
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ContinueLessonCommand}" NumberOfTapsRequired="1" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </Grid>
+                </Frame>
+                <ImageButton
+                    Grid.Row="1"
+                    Margin="0,0,0,50"
+                    BackgroundColor="Transparent"
+                    Command="{Binding CancelCommand}"
+                    Source="Close.png"
+                    VerticalOptions="StartAndExpand" />
+            </Grid>
+            <view:NoInternetView Grid.RowSpan="2" IsVisible="{Binding IsInternet}" />
+            <view:Loader Grid.RowSpan="2" IsVisible="{Binding IsLoading}" />
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

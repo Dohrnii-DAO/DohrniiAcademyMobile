@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.Socials.UserProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helper="clr-namespace:DohrniiFoundation.Helpers"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.Socials"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="{DynamicResource White}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:UserProfileViewModel x:Name="userVM" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid
+                Grid.Row="0"
+                Padding="0"
+                HeightRequest="70"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="StartAndExpand">
+                <ImageButton
+                    Margin="16,0,0,0"
+                    BackgroundColor="Transparent"
+                    Command="{Binding BackCommand}"
+                    CommandParameter="{Binding .}"
+                    HeightRequest="25"
+                    HorizontalOptions="StartAndExpand"
+                    Opacity="0.6"
+                    Source="{x:Static helper:StringConstant.BackArrow}"
+                    WidthRequest="25" />
+                <Label
+                    FontFamily="{StaticResource MonumentRegular}"
+                    FontSize="17"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="{x:Static resource:DFResources.ProfileText}"
+                    TextColor="{StaticResource BlackTextColor}"
+                    TextTransform="Uppercase"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <StackLayout Padding="15,0,15,15" BackgroundColor="{DynamicResource White}">
+                    <Grid Grid.Row="1" Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame
+                            Grid.Column="0"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource Transparent}"
+                            CornerRadius="50"
+                            HasShadow="False"
+                            HeightRequest="100"
+                            HorizontalOptions="Center"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center"
+                            WidthRequest="100">
+                            <Image Aspect="AspectFill" Source="defaultprofile.png" />
+                        </Frame>
+                        <StackLayout
+                            Grid.Column="1"
+                            Margin="20,0,0,0"
+                            VerticalOptions="Center">
+                            <Label
+                                CharacterSpacing="2"
+                                FontFamily="{StaticResource MonumentRegular}"
+                                FontSize="24"
+                                HorizontalTextAlignment="Start"
+                                Text="@Chima"
+                                TextColor="#070707"
+                                TextTransform="Uppercase" />
+                            <Grid
+                                Margin="0,0,40,0"
+                                ColumnSpacing="15"
+                                HorizontalOptions="StartAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Frame
+                                    Grid.Column="0"
+                                    Padding="0"
+                                    Background="{DynamicResource LightGradient}"
+                                    CornerRadius="8"
+                                    HasShadow="False"
+                                    HeightRequest="25"
+                                    HorizontalOptions="FillAndExpand"
+                                    WidthRequest="50">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            FontFamily="{StaticResource MonumentRegular}"
+                                            FontSize="9"
+                                            HorizontalOptions="Center"
+                                            Text="400"
+                                            TextColor="{DynamicResource White}" />
+                                        <Label
+                                            FontFamily="{StaticResource MonumentRegular}"
+                                            FontSize="6"
+                                            HorizontalOptions="Center"
+                                            Text="XP"
+                                            TextColor="{DynamicResource Black}" />
+                                    </StackLayout>
+                                </Frame>
+                                <Frame
+                                    Grid.Column="1"
+                                    Padding="0"
+                                    Background="{DynamicResource PurpleGradient}"
+                                    CornerRadius="8"
+                                    HasShadow="False"
+                                    HeightRequest="25"
+                                    HorizontalOptions="FillAndExpand"
+                                    WidthRequest="50">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            FontFamily="{StaticResource MonumentRegular}"
+                                            FontSize="9"
+                                            HorizontalOptions="Center"
+                                            Text="10"
+                                            TextColor="{DynamicResource White}" />
+                                        <Label
+                                            FontFamily="{StaticResource MonumentRegular}"
+                                            FontSize="6"
+                                            HorizontalOptions="Center"
+                                            Text="JELLY"
+                                            TextColor="{DynamicResource Black}" />
+                                    </StackLayout>
+                                </Frame>
+                                <Frame
+                                    Grid.Column="2"
+                                    Padding="0"
+                                    Background="{DynamicResource RedGradient}"
+                                    CornerRadius="8"
+                                    HasShadow="False"
+                                    HeightRequest="25"
+                                    HorizontalOptions="FillAndExpand"
+                                    WidthRequest="50">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            FontFamily="{StaticResource MonumentRegular}"
+                                            FontSize="9"
+                                            HorizontalOptions="Center"
+                                            Text="70"
+                                            TextColor="{DynamicResource White}" />
+                                        <Label
+                                            FontFamily="{StaticResource MonumentRegular}"
+                                            FontSize="6"
+                                            HorizontalOptions="Center"
+                                            Text="DHN"
+                                            TextColor="{DynamicResource Black}" />
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </Grid>
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>

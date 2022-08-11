@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.Lessons.LessonsDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helper="clr-namespace:DohrniiFoundation.Helpers"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:view="clr-namespace:DohrniiFoundation.Views"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.Lessons"
+    ios:Page.UseSafeArea="False"
+    BackgroundColor="{StaticResource BgColor}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:LessonDetailViewModel x:Name="VM" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="0,50,0,0"/>
+                    <On Platform="Android" Value="0,0,0,0"/>
+                </OnPlatform>
+
+            </Grid.Margin>
+            <Grid Margin="0,16,0,0">
+                <ImageButton
+                    Margin="20,0,0,0"
+                    BackgroundColor="Transparent"
+                    Command="{Binding BackCommand}"
+                    HeightRequest="25"
+                    HorizontalOptions="StartAndExpand"
+                    Source="{x:Static helper:StringConstant.BackArrow}"
+                    WidthRequest="25" />
+                <Label
+                    FontSize="18"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{DynamicResource lblMonumentBold}"
+                    Text="{x:Static resource:DFResources.LessonsText}"
+                    TextColor="{DynamicResource DarkText}"
+                    TextTransform="Uppercase" />
+            </Grid>
+            <StackLayout
+                Grid.Row="1"
+                Margin="16,30,16,0"
+                Orientation="Horizontal">
+                <Label
+                    FontSize="14"
+                    Style="{DynamicResource lblMonumentRegular}"
+                    Text="{Binding SelectedLesson.Title}"
+                    TextColor="{DynamicResource PrimaryColor}"
+                    VerticalOptions="CenterAndExpand" />
+                <Frame
+                    Padding="10,4,10,4"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    CornerRadius="10"
+                    HasShadow="False"
+                    HorizontalOptions="EndAndExpand">
+                    <Label
+                        FontSize="10"
+                        HorizontalTextAlignment="Center"
+                        Style="{DynamicResource lblMonumentRegular}"
+                        Text="{Binding ClassPagination}"
+                        TextColor="{DynamicResource White}"
+                        VerticalTextAlignment="Center" />
+
+                </Frame>
+            </StackLayout>
+            <FlexLayout
+                Grid.Row="2"
+                Margin="0,16,0,0"
+                Padding="0"
+                BindableLayout.ItemsSource="{Binding SelectedLesson.Classes}"
+                Direction="Row"
+                HeightRequest="10"
+                HorizontalOptions="FillAndExpand">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Margin="0"
+                                BackgroundColor="{Binding BorderColor}"
+                                HeightRequest="2"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="{Binding StackWidth}" />
+                            <Frame
+                                Padding="0"
+                                HasShadow="False"
+                                BackgroundColor="{Binding CircleBGColor}"
+                                BorderColor="{Binding BorderColor}"
+                                CornerRadius="3"
+                                HeightRequest="6"
+                                HorizontalOptions="EndAndExpand"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="6" />
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+            <Grid Grid.Row="3" Margin="16,16,26,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                    <Frame
+                        HasShadow="False"
+                        Padding="10,2,10,3"
+                        Background="{DynamicResource JellyGradient}"
+                        CornerRadius="10">
+                        <Label
+                            FontSize="10"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{DynamicResource lblMonumentRegular}"
+                            Text="2"
+                            TextColor="{DynamicResource White}"
+                            VerticalOptions="CenterAndExpand" />
+                    </Frame>
+                    <Label
+                        FontSize="9"
+                        Style="{DynamicResource lblMonumentRegular}"
+                        Text="{x:Static resource:DFResources.JelleyfishText}"
+                        TextColor="{DynamicResource DarkText80}"
+                        TextTransform="Uppercase"
+                        VerticalTextAlignment="Center" />
+                    <Frame
+                        Margin="16,0,0,0"
+                        Padding="10,2,10,3"
+                        Background="{DynamicResource XPGradient}"
+                        CornerRadius="10"
+                        HasShadow="False">
+                        <Label
+                            FontSize="10"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{DynamicResource lblMonumentRegular}"
+                            Text="{Binding SelectedClass.TotalXP}"
+                            TextColor="{DynamicResource DarkText}"
+                            VerticalOptions="CenterAndExpand" />
+                    </Frame>
+                    <Label
+                        FontSize="9"
+                        Style="{DynamicResource lblMonumentRegular}"
+                        Text="{x:Static resource:DFResources.XPText}"
+                        TextColor="{DynamicResource DarkText80}"
+                        TextTransform="Uppercase"
+                        VerticalTextAlignment="Center" />
+                </StackLayout>
+                <StackLayout
+                    HorizontalOptions="EndAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="40"
+                    VerticalOptions="FillAndExpand">
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding PreviousCommand}"
+                        CommandParameter="{Binding .}"
+                        HeightRequest="25"
+                        Source="{x:Static helper:StringConstant.BackArrow}"
+                        VerticalOptions="Center"
+                        WidthRequest="25" />
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding NextCommand}"
+                        CommandParameter="{Binding .}"
+                        HeightRequest="25"
+                        Rotation="180"
+                        Source="{x:Static helper:StringConstant.BackArrow}"
+                        VerticalOptions="Center"
+                        WidthRequest="25" />
+                </StackLayout>
+            </Grid>
+            <Frame
+                Grid.Row="4"
+                Margin="5,10,5,0"
+                Padding="1,20,1,1"
+                BorderColor="{DynamicResource BorderColor2}"
+                CornerRadius="16"
+                HasShadow="False">
+
+                <CarouselView
+                    x:Name="ClassCarouselView"
+                    BackgroundColor="{DynamicResource White}"
+                    IsSwipeEnabled="False"
+                    ItemsSource="{Binding SelectedLesson.Classes}"
+                    Loop="False"
+                    Position="{Binding PositionIndex}">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="ClassItem">
+                                <Grid Padding="16,0,16,16" IsVisible="false">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <StackLayout Grid.Row="0" Orientation="Horizontal">
+                                        <Label
+                                            FontSize="16"
+                                            Style="{DynamicResource lblPoppinsMedium}"
+                                            Text="{Binding Name}"
+                                            TextColor="{Binding TextColor}"
+                                            VerticalOptions="CenterAndExpand" />
+                                        <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                                            <Label
+                                                Style="{DynamicResource lblMonumentRegular}"
+                                                Text="{x:Static resource:DFResources.LockedText}"
+                                                TextColor="{Binding TextColor}"
+                                                TextTransform="Uppercase"
+                                                VerticalOptions="CenterAndExpand" />
+                                            <Image Source="mlock.png" VerticalOptions="CenterAndExpand" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <Label
+                                        Grid.Row="1"
+                                        FontSize="24"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{x:Static resource:DFResources.ScareResourcesText}"
+                                        TextColor="{Binding TextColor}"
+                                        TextTransform="Uppercase"
+                                        VerticalOptions="CenterAndExpand" />
+                                    <Grid.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding ShowScareResources}"
+                                            TargetType="Grid"
+                                            Value="false">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Grid.Triggers>
+                                </Grid>
+                                <StackLayout Margin="0,0,0,40" IsVisible="{Binding ShowScareResources}">
+                                    <WebView
+                                        HorizontalOptions="FillAndExpand"
+                                        Navigated="WebView_Navigated"
+                                        Source="{Binding HtmlContent}"
+                                        VerticalOptions="FillAndExpand" />
+                                </StackLayout>
+                                <Frame
+                                    Padding="18"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    CornerRadius="10"
+                                    HasShadow="False"
+                                    IsVisible="{Binding ShowScareResources}"
+                                    VerticalOptions="EndAndExpand">
+                                    <Frame.Margin>
+                                        <OnPlatform x:TypeArguments="Thickness">
+                                            <On Platform="iOS" Value="16,0,16,20"/>
+                                            <On Platform="Android" Value="16,0,16,5"/>
+                                        </OnPlatform>
+
+                                    </Frame.Margin>
+                                    <Label
+                                        FontSize="12"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{x:Static resource:DFResources.QuestionsText}"
+                                        TextColor="{DynamicResource White}"
+                                        TextDecorations="Underline"
+                                        TextTransform="Uppercase" />
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            BindingContext="{Binding Source={x:Reference ClassCarouselView}, Path=BindingContext}"
+                                            Command="{Binding QuestionsCommand}"
+                                            CommandParameter="{Binding Source={x:Reference ClassItem}, Path=BindingContext}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </Frame>
+            <Image
+                Grid.Row="4"
+                IsAnimationPlaying="True"
+                IsVisible="{Binding ShowLoader}"
+                Source="LoaderNew.gif"
+                VerticalOptions="CenterAndExpand" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

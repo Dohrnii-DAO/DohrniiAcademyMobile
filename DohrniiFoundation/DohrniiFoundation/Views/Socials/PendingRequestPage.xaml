@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.Socials.PendingRequestPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helper="clr-namespace:DohrniiFoundation.Helpers"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.Socials"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="{DynamicResource White}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:PendingRequestViewModel x:Name="pendingRequestVM" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid
+                Grid.Row="0"
+                Padding="0"
+                HeightRequest="70"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="StartAndExpand">
+                <ImageButton
+                    Margin="16,0,0,0"
+                    BackgroundColor="Transparent"
+                    Command="{Binding BackCommand}"
+                    CommandParameter="{Binding .}"
+                    HeightRequest="25"
+                    HorizontalOptions="StartAndExpand"
+                    Opacity="0.6"
+                    Source="{x:Static helper:StringConstant.BackArrow}"
+                    WidthRequest="25" />
+                <Label
+                    FontFamily="{StaticResource MonumentRegular}"
+                    FontSize="17"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="{x:Static resource:DFResources.FriendRequestText}"
+                    TextColor="{StaticResource BlackTextColor}"
+                    TextTransform="Uppercase"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center" />
+            </Grid>
+            <StackLayout Grid.Row="1">
+                <CollectionView
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding FriendRequests}"
+                    VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                                Padding="10,10,10,10"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HorizontalOptions="FillAndExpand">
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                                        <Frame
+                                            Padding="0"
+                                            BorderColor="{DynamicResource BorderColor}"
+                                            CornerRadius="30"
+                                            HasShadow="False"
+                                            HeightRequest="60"
+                                            WidthRequest="60">
+                                            <Image Source="{Binding Requester.DisplingAvatar}" />
+                                        </Frame>
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            Margin="10,0,0,0"
+                                            VerticalOptions="Center">
+                                            <Label
+                                                Margin="0,2,0,0"
+                                                FontFamily="{StaticResource MonumentRegular}"
+                                                FontSize="12"
+                                                TextColor="{DynamicResource Black}"
+                                                VerticalOptions="Center">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1}">
+                                                        <Binding Path="Requester.FirstName" />
+                                                        <Binding Path="Requester.LastName" />
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+                                            <Label
+                                                Margin="0,2,0,0"
+                                                FontFamily="{StaticResource PoppinsRegular}"
+                                                FontSize="12"
+                                                IsVisible="{Binding IsAccepted}"
+                                                Text="You are now friends"
+                                                TextColor="{DynamicResource Black}"
+                                                VerticalOptions="Center" />
+                                            <Label
+                                                Margin="0,2,0,0"
+                                                FontFamily="{StaticResource PoppinsRegular}"
+                                                FontSize="12"
+                                                IsVisible="{Binding IsRejected}"
+                                                Text="Rejected"
+                                                TextColor="{DynamicResource Black}"
+                                                VerticalOptions="Center" />
+                                            <Grid
+                                                Margin="0,0,40,0"
+                                                ColumnSpacing="10"
+                                                HorizontalOptions="StartAndExpand"
+                                                IsVisible="False">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Frame
+                                                    Grid.Column="0"
+                                                    Padding="15,5,15,5"
+                                                    BackgroundColor="{DynamicResource PrimaryBtnColor}"
+                                                    CornerRadius="5"
+                                                    HasShadow="False"
+                                                    HorizontalOptions="FillAndExpand">
+                                                    <StackLayout Spacing="0">
+                                                        <Label
+                                                            FontFamily="PoppinsBold"
+                                                            FontSize="11"
+                                                            HorizontalOptions="Center"
+                                                            Text="Accept"
+                                                            TextColor="{DynamicResource White}" />
+                                                    </StackLayout>
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Accept_Tapped" />
+                                                    </Frame.GestureRecognizers>
+                                                </Frame>
+                                                <Frame
+                                                    Grid.Column="1"
+                                                    Padding="15,5,15,5"
+                                                    BackgroundColor="{DynamicResource BorderColor}"
+                                                    CornerRadius="5"
+                                                    HasShadow="False"
+                                                    HorizontalOptions="FillAndExpand">
+                                                    <StackLayout Spacing="0">
+                                                        <Label
+                                                            FontFamily="PoppinsBold"
+                                                            FontSize="11"
+                                                            HorizontalOptions="Center"
+                                                            Text="Reject"
+                                                            TextColor="{DynamicResource BlackText}" />
+                                                    </StackLayout>
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Reject_Tapped" />
+                                                    </Frame.GestureRecognizers>
+                                                </Frame>
+                                                <Grid.Triggers>
+                                                    <MultiTrigger TargetType="Grid">
+                                                        <MultiTrigger.Conditions>
+                                                            <BindingCondition Binding="{Binding IsAccepted}" Value="False" />
+                                                            <BindingCondition Binding="{Binding IsRejected}" Value="False" />
+                                                        </MultiTrigger.Conditions>
+                                                        <Setter Property="IsVisible" Value="True" />
+                                                    </MultiTrigger>
+                                                </Grid.Triggers>
+                                            </Grid>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>
+

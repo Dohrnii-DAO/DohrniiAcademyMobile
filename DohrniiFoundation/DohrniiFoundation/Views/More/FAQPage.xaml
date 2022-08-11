@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.More.FAQPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helper="clr-namespace:DohrniiFoundation.Helpers"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:view="clr-namespace:DohrniiFoundation.Views"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.More"
+    ios:Page.UseSafeArea="true"
+    BackgroundColor="{StaticResource WhiteText}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:FAQViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ImageButton
+                Grid.Row="0"
+                Margin="16"
+                Command="{Binding BackCommand}"
+                HeightRequest="25"
+                Source="{x:Static helper:StringConstant.BackArrow}"
+                Style="{StaticResource BackButtonStyle}"
+                WidthRequest="25" />
+            <Label
+                Grid.Row="1"
+                Margin="30,10,30,0"
+                HorizontalOptions="StartAndExpand"
+                Style="{StaticResource WelcomeToDohrniiLabelStyle}"
+                Text="{x:Static resource:DFResources.FAQText}"
+                TextTransform="Uppercase" />
+            <BoxView
+                Grid.Row="2"
+                Margin="30,0,30,0"
+                BackgroundColor="{DynamicResource BorderColor}"
+                HeightRequest="1"
+                HorizontalOptions="FillAndExpand" />
+            <ScrollView Grid.Row="3" />
+
+            <view:TabbedView Grid.RowSpan="4" VerticalOptions="EndAndExpand" />
+            <view:Loader
+                Grid.RowSpan="4"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsLoading}"
+                VerticalOptions="FillAndExpand" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

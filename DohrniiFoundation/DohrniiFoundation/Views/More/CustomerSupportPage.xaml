@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:PopupPage
+    x:Class="DohrniiFoundation.Views.More.CustomerSupportPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:DohrniiFoundation.Controls"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:page="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.More"
+    ios:Page.UseSafeArea="true"
+    NavigationPage.HasNavigationBar="False">
+    <page:PopupPage.BindingContext>
+        <vm:CustomerSupportViewModel />
+    </page:PopupPage.BindingContext>
+    <ContentPage.Content>
+        <Frame
+            Margin="18,0"
+            Padding="0"
+            CornerRadius="10"
+            HasShadow="False"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="Center">
+            <StackLayout
+                Margin="0,48,0,18"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                Spacing="0"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    Margin="26,0"
+                    FontFamily="{StaticResource MonumentRegular}"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="{x:Static resource:DFResources.CustomerSupportText}"
+                    TextColor="{StaticResource BlackText}"
+                    TextTransform="Uppercase"
+                    VerticalOptions="FillAndExpand" />
+                <Label
+                    Margin="28,14,28,0"
+                    FontFamily="{StaticResource MonumentRegular}"
+                    FontSize="10"
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Text="{x:Static resource:DFResources.DropCustomerSupportText}"
+                    TextColor="{StaticResource BlackText}" />
+                <Frame
+                    Margin="16,7,16,0"
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    BorderColor="{StaticResource BlackText}"
+                    HasShadow="False"
+                    HeightRequest="202"
+                    Opacity="0.5">
+                    <controls:CustomEditor
+                        FontFamily="{StaticResource PoppinsLightItalic300}"
+                        FontSize="10"
+                        Opacity="5.3"
+                        Placeholder="Your message here"
+                        PlaceholderColor="{StaticResource BlackText}"
+                        Text="{Binding EditorText}" />
+                </Frame>
+                <Button
+                    Margin="0,50,0,0"
+                    Padding="3"
+                    Command="{Binding SendCommand}"
+                    CommandParameter="{Binding .}"
+                    FontSize="10"
+                    HeightRequest="31"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource SignInButtonStyle}"
+                    Text="{x:Static resource:DFResources.SendText}"
+                    VerticalOptions="EndAndExpand" />
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</page:PopupPage>

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.OnboardingPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:OnboardingViewModel x:Name="OnboardingVM" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid Padding="16,50,16,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <CarouselView
+                IndicatorView="indicatorView"
+                ItemsSource="{Binding Boardings}"
+                Loop="False"
+                Position="{Binding PositionIndex}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Image
+                                    Margin="0,30,0,0"
+                                    Aspect="Fill"
+                                    HorizontalOptions="FillAndExpand"
+                                    Source="{Binding Illustration}" />
+                                <Frame
+                                    Grid.Row="1"
+                                    Margin="0,20,0,0"
+                                    Padding="17"
+                                    BackgroundColor="{DynamicResource BoardingHeaderBGColor}"
+                                    HasShadow="False">
+                                    <Label
+                                        HorizontalOptions="CenterAndExpand"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{Binding Header}"
+                                        TextColor="{DynamicResource PrimaryColor}" />
+                                </Frame>
+                                <Label
+                                    Grid.Row="2"
+                                    Margin="0,20,0,0"
+                                    FontSize="18"
+                                    Style="{DynamicResource lblMonumentRegular}"
+                                    Text="{Binding Title}"
+                                    TextColor="{DynamicResource BoardingTitleColor}"
+                                    TextTransform="Uppercase" />
+                                <StackLayout
+                                    Grid.Row="3"
+                                    Margin="0,16,0,0"
+                                    Orientation="Horizontal">
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    FontSize="16"
+                                                    Style="{DynamicResource lblPoppinsBold}"
+                                                    Text="{Binding Token}"
+                                                    TextColor="{DynamicResource DarkBlack}" />
+                                                <Span
+                                                    FontSize="16"
+                                                    Style="{DynamicResource lblPoppinsRegular}"
+                                                    Text="{Binding Body}"
+                                                    TextColor="{DynamicResource DarkText}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                            </Grid>
+
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <IndicatorView
+                x:Name="indicatorView"
+                Grid.Row="1"
+                Margin="0,0,0,15"
+                HorizontalOptions="Center"
+                IndicatorColor="{DynamicResource BoardingHeaderBGColor}"
+                SelectedIndicatorColor="{DynamicResource PrimaryColor}">
+                <IndicatorView.IndicatorTemplate>
+                    <DataTemplate>
+                        <Frame
+                            HasShadow="False"
+                            Padding="0"
+                            BackgroundColor="Transparent"
+                            CornerRadius="4"
+                            HeightRequest="8"
+                            WidthRequest="24" />
+                    </DataTemplate>
+                </IndicatorView.IndicatorTemplate>
+            </IndicatorView>
+            <Frame
+                Grid.Row="2"
+                Margin="0"
+                Padding="18"
+                BackgroundColor="{DynamicResource PrimaryColor}"
+                CornerRadius="10"
+                HasShadow="False">
+                <Label
+                    FontSize="12"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{DynamicResource lblMonumentRegular}"
+                    Text="{Binding ButtonText}"
+                    TextColor="{DynamicResource White}"
+                    TextDecorations="Underline"
+                    TextTransform="Uppercase" />
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NextCommand}" NumberOfTapsRequired="1" />
+                </Frame.GestureRecognizers>
+            </Frame>
+            <Frame
+                Grid.Row="3"
+                Margin="0,10,0,0"
+                Padding="18"
+                BackgroundColor="{DynamicResource White}"
+                BorderColor="{DynamicResource PrimaryColor}"
+                CornerRadius="10"
+                HasShadow="False"
+                IsVisible="{Binding ShowLogin}">
+                <Label
+                    FontSize="12"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{DynamicResource lblMonumentRegular}"
+                    Text="{Binding LoginText}"
+                    TextColor="{DynamicResource PrimaryColor}"
+                    TextDecorations="Underline"
+                    TextTransform="Uppercase" />
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LoginCommand}" NumberOfTapsRequired="1" />
+                </Frame.GestureRecognizers>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

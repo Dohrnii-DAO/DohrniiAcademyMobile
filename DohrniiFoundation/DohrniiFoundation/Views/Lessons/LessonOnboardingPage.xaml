@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.Lessons.LessonOnboardingPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.Lessons"
+    ios:Page.UseSafeArea="true"
+    BackgroundColor="{StaticResource WhiteText}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:LessonOnboardingViewModel x:Name="VM" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="Transparent"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <Grid
+                Margin="24,42,24,0"
+                BackgroundColor="Transparent"
+                RowSpacing="0"
+                VerticalOptions="FillAndExpand">
+                <CarouselView
+                    x:Name="onBoardingCarousel"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3"
+                    CurrentItemChanged="onBoardingCarousel_CurrentItemChanged"
+                    HorizontalScrollBarVisibility="Never"
+                    IndicatorView="IndicatorView"
+                    ItemsSource="{Binding LessonsOnboardingList}"
+                    Position="{Binding Position}">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <ContentView>
+                                <ScrollView VerticalScrollBarVisibility="Never">
+                                    <Grid
+                                        HorizontalOptions="FillAndExpand"
+                                        RowSpacing="0"
+                                        VerticalOptions="FillAndExpand">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <!--  0 Index Visible  -->
+                                        <Image
+                                            Grid.Row="0"
+                                            HeightRequest="174"
+                                            IsVisible="{Binding ZeroIndexFrameVisible}"
+                                            Source="OnboardingJellyfish"
+                                            Style="{StaticResource IntroImageStyle}"
+                                            WidthRequest="211" />
+                                        <!--  1 Index Visible  -->
+                                        <pancake:PancakeView
+                                            Grid.Row="0"
+                                            Padding="0"
+                                            BackgroundGradientEndPoint="0,1"
+                                            BackgroundGradientStartPoint="0,0"
+                                            CornerRadius="16"
+                                            HeightRequest="200"
+                                            IsVisible="{Binding FirstIndexFrameVisible}">
+                                            <pancake:PancakeView.BackgroundGradientStops>
+                                                <pancake:GradientStopCollection>
+                                                    <pancake:GradientStop Offset="0" Color="{StaticResource LessonXPFirstColor}" />
+                                                    <pancake:GradientStop Offset="0.5" Color="{StaticResource LessonXPSecondColor}" />
+                                                </pancake:GradientStopCollection>
+                                            </pancake:PancakeView.BackgroundGradientStops>
+                                            <Grid>
+                                                <Label
+                                                    FontFamily="{StaticResource MonumentRegular}"
+                                                    FontSize="36"
+                                                    HorizontalOptions="Center"
+                                                    Text="{x:Static resource:DFResources.XPText}"
+                                                    TextColor="{StaticResource WhiteText}"
+                                                    VerticalOptions="Center" />
+                                                <Image
+                                                    Aspect="AspectFill"
+                                                    HeightRequest="135"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    Source="OnboardingXPJellyfish"
+                                                    VerticalOptions="StartAndExpand" />
+                                            </Grid>
+                                        </pancake:PancakeView>
+                                        <!--  2 Index Visible  -->
+                                        <pancake:PancakeView
+                                            Grid.Row="0"
+                                            Padding="0"
+                                            BackgroundGradientEndPoint="0,1"
+                                            BackgroundGradientStartPoint="0,0"
+                                            CornerRadius="16"
+                                            HeightRequest="200"
+                                            IsVisible="{Binding SecondIndexFrameVisible}">
+                                            <pancake:PancakeView.BackgroundGradientStops>
+                                                <pancake:GradientStopCollection>
+                                                    <pancake:GradientStop Offset="0" Color="{StaticResource LessonJellyFirstColor}" />
+                                                    <pancake:GradientStop Offset="0.5" Color="{StaticResource LessonXPFirstColor}" />
+                                                </pancake:GradientStopCollection>
+                                            </pancake:PancakeView.BackgroundGradientStops>
+                                            <Grid>
+                                                <Label
+                                                    Margin="32"
+                                                    FontFamily="{StaticResource MonumentRegular}"
+                                                    FontSize="36"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Text="{x:Static resource:DFResources.CryptoJellyText}"
+                                                    TextColor="{StaticResource WhiteText}"
+                                                    TextTransform="Uppercase"
+                                                    VerticalOptions="Center" />
+                                                <Image
+                                                    Aspect="AspectFill"
+                                                    HeightRequest="105"
+                                                    HorizontalOptions="EndAndExpand"
+                                                    Source="OnboardingCryptoJellyfish"
+                                                    VerticalOptions="EndAndExpand" />
+                                            </Grid>
+                                        </pancake:PancakeView>
+                                        <!--  3 Index Visible  -->
+                                        <pancake:PancakeView
+                                            Grid.Row="0"
+                                            Padding="0"
+                                            BackgroundGradientEndPoint="0,1"
+                                            BackgroundGradientStartPoint="0,0"
+                                            CornerRadius="16"
+                                            HeightRequest="200"
+                                            IsVisible="{Binding ThirdIndexFrameVisible}">
+                                            <pancake:PancakeView.BackgroundGradientStops>
+                                                <pancake:GradientStopCollection>
+                                                    <pancake:GradientStop Offset="0" Color="{StaticResource LessonXPSecondColor}" />
+                                                    <pancake:GradientStop Offset="0.5" Color="{StaticResource LessonJellyFirstColor}" />
+                                                </pancake:GradientStopCollection>
+                                            </pancake:PancakeView.BackgroundGradientStops>
+                                            <Grid>
+                                                <Label
+                                                    Margin="32"
+                                                    FontFamily="{StaticResource MonumentRegular}"
+                                                    FontSize="36"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Text="{x:Static resource:DFResources.DHNText}"
+                                                    TextColor="{StaticResource WhiteText}"
+                                                    TextTransform="Uppercase"
+                                                    VerticalOptions="Center" />
+                                                <Image
+                                                    Aspect="AspectFill"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    Source="OnboardingDhnJellyfish"
+                                                    VerticalOptions="EndAndExpand"
+                                                    WidthRequest="200" />
+                                            </Grid>
+                                        </pancake:PancakeView>
+                                        <Grid
+                                            Grid.Row="1"
+                                            Margin="0,16,0,0"
+                                            HeightRequest="48">
+                                            <Frame
+                                                BackgroundColor="{StaticResource LessonXPFirstColor}"
+                                                CornerRadius="8"
+                                                HasShadow="False"
+                                                Opacity="0.1" />
+                                            <Label
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Title}"
+                                                TextColor="{StaticResource LessonXPFirstColor}"
+                                                VerticalOptions="Center" />
+                                        </Grid>
+                                        <Label
+                                            Grid.Row="2"
+                                            Margin="0,16,0,0"
+                                            FontSize="18"
+                                            HorizontalOptions="StartAndExpand"
+                                            Text="{Binding Question}"
+                                            TextColor="{StaticResource LessonXPFirstColor}"
+                                            TextTransform="Uppercase"
+                                            VerticalOptions="FillAndExpand" />
+                                        <Label
+                                            Grid.Row="3"
+                                            HorizontalOptions="FillAndExpand"
+                                            Opacity="0.6"
+                                            TextColor="{StaticResource BlackTextColor}"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span
+                                                        FontFamily="{StaticResource MonumentRegular}"
+                                                        FontSize="16"
+                                                        Text="{Binding ShortTitle}" />
+                                                    <Span
+                                                        FontFamily="{StaticResource PoppinsRegular}"
+                                                        FontSize="16"
+                                                        Text="{Binding Description}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label
+                                            Grid.Row="4"
+                                            Margin="0,-38,0,0"
+                                            FontFamily="{StaticResource MonumentRegular}"
+                                            FontSize="16"
+                                            HorizontalOptions="FillAndExpand"
+                                            IsVisible="{Binding SecondDescriptionVisible}"
+                                            Opacity="0.6"
+                                            Text="{Binding SecondDescription}"
+                                            TextColor="{StaticResource BlackTextColor}"
+                                            VerticalOptions="FillAndExpand" />
+                                        <Image
+                                            Grid.Row="4"
+                                            Margin="0,0,0,4"
+                                            Aspect="AspectFill"
+                                            HeightRequest="50"
+                                            HorizontalOptions="Center"
+                                            IsVisible="{Binding SecondIndexImageVisible}"
+                                            Source="{Binding BottomXPJellyfish}"
+                                            VerticalOptions="Center"
+                                            WidthRequest="50" />
+                                    </Grid>
+                                </ScrollView>
+                            </ContentView>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </Grid>
+            <IndicatorView
+                x:Name="IndicatorView"
+                Margin="0,8,0,0"
+                IndicatorColor="{StaticResource LightGrayText}"
+                SelectedIndicatorColor="{StaticResource LessonXPFirstColor}"
+                Style="{StaticResource IndicatorStyle}" />
+            <Frame
+                Margin="32,24,32,8"
+                Padding="0"
+                BackgroundColor="{StaticResource LessonXPFirstColor}"
+                CornerRadius="8"
+                HasShadow="False"
+                HeightRequest="50">
+                <Label
+                    FontFamily="{StaticResource MonumentRegular}"
+                    FontSize="12"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding NextButton}"
+                    TextColor="{StaticResource WhiteText}"
+                    TextDecorations="Underline"
+                    TextTransform="Uppercase"
+                    VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NextCommand}" CommandParameter="{Binding .}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

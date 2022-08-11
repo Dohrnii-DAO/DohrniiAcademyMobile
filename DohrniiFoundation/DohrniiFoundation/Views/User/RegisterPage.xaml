@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.User.RegisterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cntrl="clr-namespace:DohrniiFoundation.Controls"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:view="clr-namespace:DohrniiFoundation.Views"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.User"
+    ios:Page.UseSafeArea="true"
+    BackgroundColor="{StaticResource WhiteText}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:RegisterViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <!--  Welcome  -->
+            <Grid Grid.Row="0" IsVisible="{Binding IsWelcome}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Margin="0,60,0,0"
+                    Style="{StaticResource WelcomeToDohrniiLabelStyle}"
+                    Text="{x:Static resource:DFResources.WelcomeToDohnriiText}" />
+                <Grid
+                    Grid.Row="1"
+                    Margin="40,60,40,0"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Style="{StaticResource SignInUseLabelStyle}"
+                        Text="{x:Static resource:DFResources.SignInToUseAppText}" />
+                    <StackLayout
+                        Grid.Row="1"
+                        Margin="0,0,0,20"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Vertical"
+                        Spacing="32"
+                        VerticalOptions="FillAndExpand">
+                        <Grid>
+                            <Frame BorderColor="{Binding EmailFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                            <cntrl:NoOutlineEntry
+                                Margin="8,0,0,0"
+                                Placeholder="{x:Static resource:DFResources.EmailPlaceholder}"
+                                Style="{StaticResource EnterEmailEntryStyle}"
+                                Text="{Binding Email}"
+                                TextChangedCommand="{Binding EmailTextChangedCommand}" />
+                            <Image
+                                HeightRequest="12"
+                                Source="{Binding EmailIcon}"
+                                Style="{StaticResource LoginFieldsImageStyle}"
+                                WidthRequest="12" />
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="2"
+                        Margin="0,0,0,20"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Vertical"
+                        Spacing="32"
+                        VerticalOptions="FillAndExpand">
+                        <Grid>
+                            <Frame BorderColor="{Binding PasswordFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                            <cntrl:NoOutlineEntry
+                                Margin="8,0,0,0"
+                                IsPassword="True"
+                                Placeholder="{x:Static resource:DFResources.PasswordPlaceholder}"
+                                Style="{StaticResource EnterEmailEntryStyle}"
+                                Text="{Binding Password}"
+                                TextChangedCommand="{Binding PasswordTextChangedCommand}">
+                                <cntrl:NoOutlineEntry.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding ShowPassword}"
+                                        TargetType="cntrl:NoOutlineEntry"
+                                        Value="True">
+                                        <Setter Property="IsPassword" Value="False" />
+                                    </DataTrigger>
+                                </cntrl:NoOutlineEntry.Triggers>
+                            </cntrl:NoOutlineEntry>
+                            <Image
+                                HeightRequest="12"
+                                Source="{Binding PasswordIcon}"
+                                Style="{StaticResource LoginFieldsImageStyle}"
+                                WidthRequest="12" />
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="3"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Vertical"
+                        Spacing="32"
+                        VerticalOptions="FillAndExpand">
+                        <Grid>
+                            <Frame BorderColor="{Binding ConfirmPasswordFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                            <cntrl:NoOutlineEntry
+                                Margin="8,0,0,0"
+                                IsPassword="True"
+                                Placeholder="{x:Static resource:DFResources.ConfirmPasswordPlaceholder}"
+                                Style="{StaticResource EnterEmailEntryStyle}"
+                                Text="{Binding ConfirmPassword}"
+                                TextChangedCommand="{Binding ConfirmPasswordTextChangedCommand}">
+                                <cntrl:NoOutlineEntry.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding ShowPassword}"
+                                        TargetType="cntrl:NoOutlineEntry"
+                                        Value="True">
+                                        <Setter Property="IsPassword" Value="False" />
+                                    </DataTrigger>
+                                </cntrl:NoOutlineEntry.Triggers>
+                            </cntrl:NoOutlineEntry>
+                            <Image
+                                HeightRequest="12"
+                                Source="{Binding PasswordIcon}"
+                                Style="{StaticResource LoginFieldsImageStyle}"
+                                WidthRequest="12" />
+                        </Grid>
+                    </StackLayout>
+                    <Button
+                        Grid.Row="4"
+                        Margin="0,80,0,0"
+                        Command="{Binding SubmitCommand}"
+                        Style="{StaticResource SignInButtonStyle}"
+                        Text="{x:Static resource:DFResources.SubmitText}"
+                        TextTransform="Uppercase" />
+                    <StackLayout
+                        Grid.Row="5"
+                        Margin="0,32,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="16"
+                        VerticalOptions="FillAndExpand">
+                        <BoxView Style="{StaticResource SignInWithBoxViewStyle}" />
+                        <Label Style="{StaticResource OrSignWithLabelStyle}" Text="{x:Static resource:DFResources.SignWithText}" />
+                        <BoxView Style="{StaticResource SignInWithBoxViewStyle}" />
+                    </StackLayout>
+                    <Grid
+                        Grid.Row="6"
+                        Margin="0,16,0,0"
+                        ColumnSpacing="44"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Frame
+                            Grid.Column="0"
+                            Padding="0"
+                            HeightRequest="41"
+                            Style="{StaticResource FrameBlueStyle}"
+                            WidthRequest="56">
+                            <Image
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="{Binding Google}"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </Frame>
+                        <Frame
+                            Grid.Column="1"
+                            Padding="0"
+                            HeightRequest="41"
+                            Style="{StaticResource FrameBlueStyle}"
+                            WidthRequest="56">
+                            <Image
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="{Binding Fb}"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </Frame>
+                        <Frame
+                            Grid.Column="2"
+                            Padding="0"
+                            HeightRequest="41"
+                            Style="{StaticResource FrameBlueStyle}"
+                            WidthRequest="56">
+                            <Image
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="{Binding Apple}"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </Frame>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!--  Notice  -->
+            <Frame
+                Grid.Row="0"
+                Margin="13,50,13,50"
+                Padding="0"
+                BackgroundColor="{DynamicResource WhiteTranparentColor}"
+                BorderColor="{DynamicResource BorderColor}"
+                CornerRadius="20"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsNext}"
+                VerticalOptions="FillAndExpand">
+                <StackLayout
+                    Padding="50"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <Label
+                        FontFamily="{StaticResource MonumentRegular}"
+                        FontSize="26"
+                        HorizontalOptions="Center"
+                        Opacity="0.6"
+                        Text="{x:Static resource:DFResources.SignUpNoticeTitleText}"
+                        TextColor="{DynamicResource NoticeTitleColor}" />
+                    <BoxView
+                        Margin="20,0,20,0"
+                        BackgroundColor="{DynamicResource BlackText}"
+                        HeightRequest="2"
+                        Opacity="0.3"
+                        WidthRequest="228" />
+                    <Label
+                        FontFamily="{StaticResource PoppinsRegular}"
+                        FontSize="22"
+                        HorizontalTextAlignment="Center"
+                        Opacity="0.76"
+                        Text="{x:Static resource:DFResources.SignUpNoticeText}"
+                        TextColor="{DynamicResource NoticeTextColor}" />
+                    <Button
+                        Grid.Row="2"
+                        Margin="0,80,0,0"
+                        Command="{Binding NextCommand}"
+                        Style="{StaticResource SignInButtonStyle}"
+                        Text="{x:Static resource:DFResources.NextText}"
+                        TextTransform="Uppercase" />
+                </StackLayout>
+            </Frame>
+            <!--  Signup  -->
+            <ScrollView Grid.Row="0" IsVisible="{Binding IsSignUp}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Margin="0,100,0,0"
+                        Style="{StaticResource WelcomeToDohrniiLabelStyle}"
+                        Text="{x:Static resource:DFResources.WelcomeToDohnriiText}" />
+                    <Grid
+                        Grid.Row="1"
+                        Margin="40,28,40,0"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Style="{StaticResource SignInUseLabelStyle}"
+                            Text="{x:Static resource:DFResources.RegisterToUseAppText}" />
+                        <StackLayout
+                            Grid.Row="1"
+                            Margin="0,0,0,20"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Vertical"
+                            Spacing="32"
+                            VerticalOptions="FillAndExpand">
+                            <Grid>
+                                <Frame BorderColor="{Binding UserNameFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                                <cntrl:NoOutlineEntry
+                                    Margin="8,0,0,0"
+                                    Placeholder="{x:Static resource:DFResources.UserNameText}"
+                                    Style="{StaticResource EnterEmailEntryStyle}"
+                                    Text="{Binding UserName}"
+                                    TextChangedCommand="{Binding UserNameTextChangedCommand}" />
+                                <Image
+                                    HeightRequest="12"
+                                    Source="{Binding UserIcon}"
+                                    Style="{StaticResource LoginFieldsImageStyle}"
+                                    WidthRequest="12" />
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout
+                            Grid.Row="2"
+                            Margin="0,0,0,20"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Vertical"
+                            Spacing="32"
+                            VerticalOptions="FillAndExpand">
+                            <Grid>
+                                <Frame BorderColor="{Binding FirstNameFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                                <cntrl:NoOutlineEntry
+                                    Margin="8,0,0,0"
+                                    Placeholder="{x:Static resource:DFResources.FirstNameText}"
+                                    Style="{StaticResource EnterEmailEntryStyle}"
+                                    Text="{Binding FirstName}"
+                                    TextChangedCommand="{Binding FirstNameTextChangedCommand}" />
+                                <Image
+                                    HeightRequest="12"
+                                    Source="{Binding UserIcon}"
+                                    Style="{StaticResource LoginFieldsImageStyle}"
+                                    WidthRequest="12" />
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout
+                            Grid.Row="3"
+                            Margin="0,0,0,20"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Vertical"
+                            Spacing="32"
+                            VerticalOptions="FillAndExpand">
+                            <Grid>
+                                <Frame BorderColor="{Binding LastNameFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                                <cntrl:NoOutlineEntry
+                                    Margin="8,0,0,0"
+                                    Placeholder="{x:Static resource:DFResources.LastNameText}"
+                                    Style="{StaticResource EnterEmailEntryStyle}"
+                                    Text="{Binding LastName}"
+                                    TextChangedCommand="{Binding LastNameTextChangedCommand}" />
+                                <Image
+                                    HeightRequest="12"
+                                    Source="{Binding UserIcon}"
+                                    Style="{StaticResource LoginFieldsImageStyle}"
+                                    WidthRequest="12" />
+                            </Grid>
+                        </StackLayout>
+                        <!--<StackLayout
+                            Grid.Row="4"
+                            Margin="0,0,0,20"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Vertical"
+                            Spacing="32"
+                            VerticalOptions="FillAndExpand">
+                            <Grid>
+                                <Frame BorderColor="{Binding PasswordFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                                <cntrl:NoOutlineEntry
+                                    Margin="8,0,0,0"
+                                    IsPassword="True"
+                                    Placeholder="{x:Static resource:DFResources.PasswordPlaceholder}"
+                                    Style="{StaticResource EnterEmailEntryStyle}"
+                                    Text="{Binding Password}"
+                                    TextChangedCommand="{Binding PasswordTextChangedCommand}">
+                                    <cntrl:NoOutlineEntry.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding ShowPassword}"
+                                            TargetType="cntrl:NoOutlineEntry"
+                                            Value="True">
+                                            <Setter Property="IsPassword" Value="False" />
+                                        </DataTrigger>
+                                    </cntrl:NoOutlineEntry.Triggers>
+                                </cntrl:NoOutlineEntry>
+                                <Image
+                                    HeightRequest="12"
+                                    Source="{Binding PasswordIcon}"
+                                    Style="{StaticResource LoginFieldsImageStyle}"
+                                    WidthRequest="12" />
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout
+                            Grid.Row="5"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Vertical"
+                            Spacing="32"
+                            VerticalOptions="FillAndExpand">
+                            <Grid>
+                                <Frame BorderColor="{Binding ConfirmPasswordFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                                <cntrl:NoOutlineEntry
+                                    Margin="8,0,0,0"
+                                    IsPassword="True"
+                                    Placeholder="{x:Static resource:DFResources.ConfirmPasswordPlaceholder}"
+                                    Style="{StaticResource EnterEmailEntryStyle}"
+                                    Text="{Binding ConfirmPassword}"
+                                    TextChangedCommand="{Binding ConfirmPasswordTextChangedCommand}">
+                                    <cntrl:NoOutlineEntry.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding ShowPassword}"
+                                            TargetType="cntrl:NoOutlineEntry"
+                                            Value="True">
+                                            <Setter Property="IsPassword" Value="False" />
+                                        </DataTrigger>
+                                    </cntrl:NoOutlineEntry.Triggers>
+                                </cntrl:NoOutlineEntry>
+                                <Image
+                                    HeightRequest="12"
+                                    Source="{Binding PasswordIcon}"
+                                    Style="{StaticResource LoginFieldsImageStyle}"
+                                    WidthRequest="12" />
+                            </Grid>
+                        </StackLayout>-->
+                        <StackLayout Grid.Row="6" Orientation="Horizontal">
+                            <CheckBox
+                                IsChecked="{Binding ShowPassword}"
+                                Opacity="0.3"
+                                Color="{DynamicResource BlackText}" />
+                            <Label
+                                Margin="0,5,0,0"
+                                Style="{StaticResource SignInUseLabelStyle}"
+                                Text="{x:Static resource:DFResources.ShowPasswordText}" />
+                        </StackLayout>
+                        <StackLayout
+                            Grid.Row="7"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Vertical"
+                            Spacing="32"
+                            VerticalOptions="FillAndExpand">
+                            <Grid>
+                                <Frame BorderColor="{Binding CodeFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                                <cntrl:NoOutlineEntry
+                                    Margin="8,0,0,0"
+                                    IsPassword="True"
+                                    Keyboard="Numeric"
+                                    Placeholder="{x:Static resource:DFResources.VerificationCodePlaceholder}"
+                                    Style="{StaticResource EnterEmailEntryStyle}"
+                                    Text="{Binding VerificationCode}"
+                                    TextChangedCommand="{Binding CodeTextChangedCommand}" />
+                                <Image
+                                    HeightRequest="12"
+                                    Source="{Binding PasswordIcon}"
+                                    Style="{StaticResource LoginFieldsImageStyle}"
+                                    WidthRequest="12" />
+                            </Grid>
+                        </StackLayout>
+                        <Button
+                            Grid.Row="8"
+                            Margin="0,80,0,0"
+                            Command="{Binding SignUpCommand}"
+                            Style="{StaticResource SignInButtonStyle}"
+                            Text="{x:Static resource:DFResources.SignUpText}"
+                            TextTransform="Uppercase" />
+
+                    </Grid>
+                </Grid>
+            </ScrollView>
+            <!--  Notice  -->
+            <Frame
+                Grid.Row="0"
+                Margin="13,50,13,50"
+                Padding="0"
+                BackgroundColor="{DynamicResource WhiteTranparentColor}"
+                BorderColor="{DynamicResource BorderColor}"
+                CornerRadius="20"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsSuccessful}"
+                VerticalOptions="FillAndExpand">
+                <StackLayout
+                    Padding="50"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <Label
+                        FontFamily="{StaticResource MonumentRegular}"
+                        FontSize="26"
+                        HorizontalOptions="Center"
+                        Opacity="0.6"
+                        Text="{x:Static resource:DFResources.SuccessfulText}"
+                        TextColor="{DynamicResource NoticeTitleColor}" />
+                    <BoxView
+                        Margin="20,0,20,0"
+                        BackgroundColor="{DynamicResource BlackText}"
+                        HeightRequest="2"
+                        Opacity="0.3"
+                        WidthRequest="228" />
+                    <Label
+                        FontFamily="{StaticResource PoppinsRegular}"
+                        FontSize="22"
+                        HorizontalTextAlignment="Center"
+                        Opacity="0.76"
+                        Text="{x:Static resource:DFResources.SuccessfulRegistrationText}"
+                        TextColor="{DynamicResource NoticeTextColor}" />
+                    <Button
+                        Grid.Row="2"
+                        Margin="0,80,0,0"
+                        Command="{Binding NextCommand}"
+                        Style="{StaticResource SignInButtonStyle}"
+                        Text="{x:Static resource:DFResources.SignInText}"
+                        TextTransform="Uppercase" />
+                </StackLayout>
+            </Frame>
+            <view:Loader
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                IsVisible="{Binding IsLoading}" />
+            <view:NoInternetView
+                Grid.Row="2"
+                IsVisible="{Binding IsInternet}"
+                VerticalOptions="EndAndExpand" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

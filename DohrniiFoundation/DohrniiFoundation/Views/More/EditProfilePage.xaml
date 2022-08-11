@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.More.EditProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cntrl="clr-namespace:DohrniiFoundation.Controls"
+    xmlns:helper="clr-namespace:DohrniiFoundation.Helpers"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:view="clr-namespace:DohrniiFoundation.Views"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.Lessons"
+    ios:Page.UseSafeArea="true"
+    BackgroundColor="{StaticResource WhiteText}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:EditProfileViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ImageButton
+                Grid.Row="0"
+                Margin="16"
+                Command="{Binding BackCommand}"
+                HeightRequest="25"
+                Source="{x:Static helper:StringConstant.BackArrow}"
+                Style="{StaticResource BackButtonStyle}"
+                WidthRequest="25" />
+            <Label
+                Grid.Row="1"
+                Style="{StaticResource WelcomeToDohrniiLabelStyle}"
+                Text="{x:Static resource:DFResources.EditProfileText}"
+                TextTransform="Uppercase" />
+            <ScrollView Grid.Row="2">
+                <Grid
+                    Padding="0,0,0,40"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Frame
+                        Grid.Row="0"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource Grey}"
+                        BorderColor="{DynamicResource BorderColor}"
+                        CornerRadius="57"
+                        HasShadow="False"
+                        HeightRequest="114"
+                        HorizontalOptions="CenterAndExpand"
+                        IsClippedToBounds="True"
+                        WidthRequest="114">
+                        <Image Source="{Binding ProfileImage}" />
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CameraCommand}" NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <!--<Grid
+                Grid.Row="2"
+                Margin="50,0,0,0"
+                HeightRequest="25"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="EndAndExpand"
+                WidthRequest="25">
+                <ImageButton
+                    BackgroundColor="Transparent"
+                    Command="{Binding CameraCommand}"
+                    CommandParameter="{Binding .}"
+                    Source="{x:Static helper:StringConstant.CameraIcon}" />
+            </Grid>-->
+                    <StackLayout
+                        Grid.Row="1"
+                        Margin="40,8"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="14"
+                        VerticalOptions="FillAndExpand">
+
+                        <StackLayout Orientation="Vertical" Spacing="0">
+                            <Label
+                                FontFamily="{StaticResource PoppinsRegular}"
+                                FontSize="12"
+                                Text="{x:Static resource:DFResources.ChangeUserNameText}"
+                                TextColor="{StaticResource BlackText}" />
+                            <Grid>
+                                <Frame BorderColor="{Binding UserNameFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                                <cntrl:NoOutlineEntry
+                                    Margin="8,0,0,0"
+                                    Opacity="0.7"
+                                    Placeholder="{x:Static resource:DFResources.UserNameText}"
+                                    Style="{StaticResource EnterEmailEntryStyle}"
+                                    Text="{Binding UserName}"
+                                    TextChangedCommand="{Binding UserNameTextChangedCommand}" />
+                                <Image
+                                    HeightRequest="12"
+                                    Source="{x:Static helper:StringConstant.UserIcon}"
+                                    Style="{StaticResource LoginFieldsImageStyle}"
+                                    WidthRequest="12" />
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout Orientation="Vertical" Spacing="0">
+                            <Label
+                                FontFamily="{StaticResource PoppinsRegular}"
+                                FontSize="12"
+                                Text="{x:Static resource:DFResources.ChangeFirstNameText}"
+                                TextColor="{StaticResource BlackText}" />
+                            <Grid>
+                                <Frame BorderColor="{Binding FirstNameFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                                <cntrl:NoOutlineEntry
+                                    Margin="8,0,0,0"
+                                    Opacity="0.7"
+                                    Placeholder="{x:Static resource:DFResources.FirstNameText}"
+                                    Style="{StaticResource EnterEmailEntryStyle}"
+                                    Text="{Binding FirstName}"
+                                    TextChangedCommand="{Binding FirstNameTextChangedCommand}" />
+                                <Image
+                                    HeightRequest="12"
+                                    Source="{x:Static helper:StringConstant.UserIcon}"
+                                    Style="{StaticResource LoginFieldsImageStyle}"
+                                    WidthRequest="12" />
+                            </Grid>
+                        </StackLayout>
+                        <StackLayout Orientation="Vertical" Spacing="0">
+                            <Label
+                                FontFamily="{StaticResource PoppinsRegular}"
+                                FontSize="12"
+                                Text="{x:Static resource:DFResources.ChangeLastNameText}"
+                                TextColor="{StaticResource BlackText}" />
+                            <Grid>
+                                <Frame BorderColor="{Binding LastNameFrameBorderColor}" Style="{StaticResource FrameBlueStyle}" />
+                                <cntrl:NoOutlineEntry
+                                    Margin="8,0,0,0"
+                                    Opacity="0.7"
+                                    Placeholder="{x:Static resource:DFResources.LastNameText}"
+                                    Style="{StaticResource EnterEmailEntryStyle}"
+                                    Text="{Binding LastName}"
+                                    TextChangedCommand="{Binding LastNameTextChangedCommand}" />
+                                <Image
+                                    HeightRequest="12"
+                                    Source="{x:Static helper:StringConstant.UserIcon}"
+                                    Style="{StaticResource LoginFieldsImageStyle}"
+                                    WidthRequest="12" />
+                            </Grid>
+                        </StackLayout>
+
+
+                        <StackLayout Orientation="Vertical" Spacing="0">
+                            <Label
+                                FontFamily="{StaticResource PoppinsRegular}"
+                                FontSize="12"
+                                Text="{x:Static resource:DFResources.WalletAddressText}"
+                                TextColor="{StaticResource BlackText}" />
+                            <Grid>
+                                <Frame x:Name="walletAddressFrame" Style="{StaticResource FrameBlueStyle}" />
+                                <cntrl:NoOutlineEntry
+                                    x:Name="walletAddressEntry"
+                                    Margin="8,0,0,0"
+                                    FontSize="10"
+                                    Opacity="0.7"
+                                    Placeholder="{x:Static resource:DFResources.WalletAddressText}"
+                                    Style="{StaticResource EnterEmailEntryStyle}"
+                                    Text="{Binding WalletAddress}" />
+                                <Image
+                                    HeightRequest="12"
+                                    Source="{x:Static helper:StringConstant.PasswordIcon}"
+                                    Style="{StaticResource LoginFieldsImageStyle}"
+                                    WidthRequest="12" />
+
+                            </Grid>
+                        </StackLayout>
+                    </StackLayout>
+                    <Frame
+                        Grid.Row="2"
+                        Margin="40,16"
+                        Padding="0"
+                        BackgroundColor="{StaticResource LessonXPFirstColor}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="50">
+                        <Label
+                            FontFamily="{StaticResource MonumentRegular}"
+                            FontSize="14"
+                            HorizontalTextAlignment="Center"
+                            Text="{x:Static resource:DFResources.SaveText}"
+                            TextColor="{StaticResource WhiteText}"
+                            TextTransform="Uppercase"
+                            VerticalTextAlignment="Center" />
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding SaveCommand}"
+                                CommandParameter="{Binding .}"
+                                NumberOfTapsRequired="1" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </Grid>
+            </ScrollView>
+            <view:TabbedView Grid.RowSpan="3" VerticalOptions="EndAndExpand" />
+            <view:Loader
+                Grid.RowSpan="3"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsLoading}"
+                VerticalOptions="FillAndExpand" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

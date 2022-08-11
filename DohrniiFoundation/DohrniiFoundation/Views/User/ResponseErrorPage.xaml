@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.ResponseErrorPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.User"
+    BackgroundColor="{StaticResource WhiteText}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:ResponseErrorViewModel x:Name="VM" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout
+            Margin="44,20,44,44"
+            HorizontalOptions="Center"
+            Spacing="16"
+            VerticalOptions="Center">
+            <Image
+                HeightRequest="126"
+                Source="OnboardingCryptoJellyfish.png"
+                WidthRequest="141" />
+            <Label
+                Opacity="10"
+                Style="{StaticResource ErrorMessageLabelStyle}"
+                Text="{x:Static resource:DFResources.SomethingWrongText}" />
+            <Label Style="{StaticResource CheckInternetLabelStyle}" Text="{x:Static resource:DFResources.CheckInternetText}" />
+            <Frame Style="{StaticResource TryAgainFrameStyle}">
+                <Label Style="{StaticResource TryAgainLabelStyle}" Text="{x:Static resource:DFResources.TryAgainText}" />
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding TryAgainCommand}" NumberOfTapsRequired="1" />
+                </Frame.GestureRecognizers>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

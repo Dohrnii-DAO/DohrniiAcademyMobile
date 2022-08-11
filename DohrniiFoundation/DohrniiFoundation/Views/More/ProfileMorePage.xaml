@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DohrniiFoundation.Views.More.ProfileMorePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cntrl="clr-namespace:DohrniiFoundation.Controls"
+    xmlns:ffloadingimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:helper="clr-namespace:DohrniiFoundation.Helpers"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:view="clr-namespace:DohrniiFoundation.Views"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.More"
+    ios:Page.UseSafeArea="False"
+    BackgroundColor="{DynamicResource BgColor}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:ProfileMoreViewModel x:Name="VM" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout
+                Margin="0,0,0,50"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="EndAndExpand">
+                <Image
+                    Aspect="AspectFit"
+                    Opacity="0.5"
+                    Source="{x:Static helper:StringConstant.LessonsBg}"
+                    Style="{StaticResource LessonBgImageStyle}" />
+            </StackLayout>
+            <ScrollView>
+                <Grid Margin="0,16,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Frame
+                        Margin="15,10,15,0"
+                        Padding="16"
+                        BackgroundColor="{DynamicResource White}"
+                        BorderColor="{DynamicResource BorderColor2}"
+                        CornerRadius="10"
+                        HasShadow="False">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <StackLayout Orientation="Horizontal">
+                                <Image
+                                    Aspect="AspectFit"
+                                    HeightRequest="20"
+                                    Source="{x:Static helper:StringConstant.EditProfileIcon}"
+                                    WidthRequest="20" />
+                                <Label
+                                    Margin="10,3,0,0"
+                                    FontSize="9"
+                                    Style="{DynamicResource lblMonumentRegular}"
+                                    Text="{x:Static resource:DFResources.EditText}"
+                                    TextColor="{DynamicResource Black}" />
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding CommandEditProfile}" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <StackLayout
+                                Grid.Row="1"
+                                Margin="0,20,0,40"
+                                Orientation="Horizontal"
+                                Spacing="0">
+                                <Frame
+                                    Padding="0"
+                                    BorderColor="{DynamicResource BorderColor2}"
+                                    CornerRadius="48"
+                                    HasShadow="False"
+                                    HeightRequest="96"
+                                    IsClippedToBounds="True"
+                                    VerticalOptions="FillAndExpand"
+                                    WidthRequest="96">
+                                    <Image Aspect="AspectFill">
+                                        <Image.Source>
+                                            <UriImageSource
+                                                CacheValidity="14"
+                                                CachingEnabled="False"
+                                                Uri="{Binding User.ProfileImage}" />
+                                        </Image.Source>
+                                    </Image>
+                                </Frame>
+                                <StackLayout
+                                    Margin="10,0,0,0"
+                                    Spacing="0"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        FontSize="20"
+                                        Style="{DynamicResource lblMonumentBold}"
+                                        Text="{Binding User.UserName}"
+                                        TextColor="{StaticResource Black80}" />
+                                    <Label
+                                        FontSize="9"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{Binding User.Email}"
+                                        TextColor="{DynamicResource Black80}" />
+                                    <Frame
+                                        Margin="0,16,0,0"
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource WalletAddressBG}"
+                                        CornerRadius="10"
+                                        HasShadow="False"
+                                        HeightRequest="24"
+                                        HorizontalOptions="StartAndExpand">
+                                        <Label
+                                            Margin="8,0,8,0"
+                                            FontSize="7"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Style="{DynamicResource lblMonumentRegular}"
+                                            Text="{Binding User.DisplayAddress}"
+                                            TextColor="{DynamicResource Black60}"
+                                            VerticalOptions="CenterAndExpand" />
+                                    </Frame>
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                    <StackLayout
+                        Grid.Row="1"
+                        Margin="15,20,15,60"
+                        BackgroundColor="Transparent"
+                        BindableLayout.ItemsSource="{Binding ProfileMoreList}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Margin="0,0,0,15"
+                                    Padding="16"
+                                    BackgroundColor="{DynamicResource White}"
+                                    CornerRadius="10"
+                                    HasShadow="False">
+                                    <StackLayout Margin="0" Orientation="Horizontal">
+                                        <Image Source="{Binding TitleImage}" VerticalOptions="Center" />
+                                        <Label
+                                            Margin="16,0,0,0"
+                                            FontFamily="{StaticResource MonumentRegular}"
+                                            FontSize="13"
+                                            Opacity="0.8"
+                                            Text="{Binding Title}"
+                                            TextColor="{StaticResource BlackText}"
+                                            VerticalTextAlignment="Center" />
+                                        <Image
+                                            Aspect="AspectFit"
+                                            HeightRequest="12"
+                                            HorizontalOptions="EndAndExpand"
+                                            IsVisible="{Binding IsNextVisible}"
+                                            Source="{x:Static helper:StringConstant.MArrowRightIcon}"
+                                            WidthRequest="12" />
+                                    </StackLayout>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Menu_Tapped" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+
+            <view:TabbedView VerticalOptions="EndAndExpand" />
+            <Grid
+                BackgroundColor="{DynamicResource OverlayCore}"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding ShowCS}"
+                VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Frame
+                    Margin="18,0,18,0"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource White}"
+                    CornerRadius="10"
+                    HasShadow="False"
+                    HeightRequest="420"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <StackLayout>
+                        <Label
+                            Margin="26,40,26,0"
+                            FontSize="18"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{DynamicResource lblMonumentBold}"
+                            Text="{x:Static resource:DFResources.CustomerSupportText}"
+                            TextColor="{DynamicResource Black}"
+                            TextTransform="Uppercase" />
+                        <Label
+                            Margin="26,10,26,0"
+                            FontSize="10"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center"
+                            Style="{DynamicResource lblMonumentRegular}"
+                            Text="{x:Static resource:DFResources.DropCustomerSupportText}"
+                            TextColor="{DynamicResource Black}" />
+
+                        <Frame
+                            Margin="8"
+                            Padding="5"
+                            BorderColor="{DynamicResource Black60}"
+                            CornerRadius="10"
+                            VerticalOptions="FillAndExpand">
+                            <cntrl:CustomEditor Placeholder="{x:Static resource:DFResources.YourMessageHereText}" TextColor="{DynamicResource Black80}" />
+                        </Frame>
+                        <Frame
+                            Margin="0,40,0,18"
+                            Padding="32,10,32,10"
+                            BackgroundColor="{StaticResource LessonXPFirstColor}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HorizontalOptions="CenterAndExpand">
+                            <Label
+                                FontSize="10"
+                                HorizontalTextAlignment="Center"
+                                Style="{DynamicResource lblMonumentRegular}"
+                                Text="{x:Static resource:DFResources.SendText}"
+                                TextColor="{StaticResource WhiteText}"
+                                VerticalTextAlignment="Center" />
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SendCommand}" NumberOfTapsRequired="1" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowCSCommand}" NumberOfTapsRequired="1" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding HideCSCommand}" NumberOfTapsRequired="1" />
+                </Grid.GestureRecognizers>
+            </Grid>
+            <view:Loader
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsLoading}"
+                VerticalOptions="FillAndExpand" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<page:PopupPage
+    x:Class="DohrniiFoundation.Views.Lessons.LessonOnboardingPopUpPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helper="clr-namespace:DohrniiFoundation.Helpers"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:page="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:resource="clr-namespace:DohrniiFoundation.Resources"
+    xmlns:vm="clr-namespace:DohrniiFoundation.ViewModels.Lessons"
+    ios:Page.UseSafeArea="true"
+    BackgroundInputTransparent="True"
+    CloseWhenBackgroundIsClicked="True"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:LessonCreditTypeViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Frame
+                Grid.Row="0"
+                Margin="16,0,16,0"
+                Padding="0"
+                BackgroundColor="White"
+                CornerRadius="16"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand">
+                <Grid
+                    Margin="16"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="33.3*" />
+                        <ColumnDefinition Width="33.3*" />
+                        <ColumnDefinition Width="33.3*" />
+                    </Grid.ColumnDefinitions>
+                    <Frame
+                        Grid.Column="0"
+                        Opacity="{Binding XPOpacity}"
+                        Style="{StaticResource XPGradientFrame}">
+                        <Frame.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Offset="0.0" Color="{StaticResource LessonXPFirstColor}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource LessonXPSecondColor}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource LessonXPSecondColor}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource LessonXPSecondColor}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource LessonXPSecondColor}" />
+                            </LinearGradientBrush>
+                        </Frame.Background>
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70*" />
+                                <RowDefinition Height="30*" />
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Style="{StaticResource LessonXPValueStyle}"
+                                Text="0" />
+                            <Frame
+                                Grid.Row="1"
+                                BorderColor="{StaticResource LessonXPSecondColor}"
+                                HasShadow="False"
+                                Style="{StaticResource XPTextFrame}">
+                                <Label Style="{StaticResource LessonXPTextStyle}" Text="{x:Static resource:DFResources.XPText}" />
+                            </Frame>
+                        </Grid>
+                    </Frame>
+                    <Frame
+                        Grid.Column="1"
+                        Opacity="{Binding JellyfishOpacity}"
+                        Style="{StaticResource XPGradientFrame}">
+                        <Frame.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Offset="0.1" Color="{StaticResource LessonJellyFirstColor}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource LessonXPFirstColor}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource LessonXPFirstColor}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource LessonXPFirstColor}" />
+                            </LinearGradientBrush>
+                        </Frame.Background>
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70*" />
+                                <RowDefinition Height="30*" />
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Style="{StaticResource LessonXPValueStyle}"
+                                Text="0" />
+                            <Frame
+                                Grid.Row="1"
+                                BorderColor="{StaticResource LessonXPFirstColor}"
+                                HasShadow="False"
+                                Style="{StaticResource XPTextFrame}">
+                                <Label Style="{StaticResource LessonJellyTextStyle}" Text="{x:Static resource:DFResources.CryptoJellyText}" />
+                            </Frame>
+                        </Grid>
+                    </Frame>
+                    <Frame
+                        Grid.Column="2"
+                        Opacity="{Binding DHNOpacity}"
+                        Style="{StaticResource XPGradientFrame}">
+                        <Frame.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Offset="0.1" Color="{StaticResource LessonXPSecondColor}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource LessonJellyFirstColor}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource LessonJellyFirstColor}" />
+                                <GradientStop Offset="1.0" Color="{StaticResource LessonJellyFirstColor}" />
+                            </LinearGradientBrush>
+                        </Frame.Background>
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70*" />
+                                <RowDefinition Height="30*" />
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Style="{StaticResource LessonXPValueStyle}"
+                                Text="0" />
+                            <Frame
+                                Grid.Row="1"
+                                BorderColor="{StaticResource LessonJellyFirstColor}"
+                                HasShadow="False"
+                                Style="{StaticResource XPTextFrame}">
+                                <Label Style="{StaticResource LessonDHNTextStyle}" Text="{x:Static resource:DFResources.DHNText}" />
+                            </Frame>
+                        </Grid>
+                    </Frame>
+                </Grid>
+            </Frame>
+            <Frame
+                Grid.Row="1"
+                Margin="16"
+                Padding="0"
+                BackgroundColor="White"
+                CornerRadius="16"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center">
+                <StackLayout
+                    Margin="16,16,16,32"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Vertical"
+                    Spacing="16"
+                    VerticalOptions="FillAndExpand">
+                    <Label
+                        FontSize="14"
+                        Text="{Binding OnBoardingTitle}"
+                        TextColor="{StaticResource LessonXPFirstColor}" />
+                    <BoxView BackgroundColor="#E1E1E1" HeightRequest="2" />
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span
+                                        FontFamily="{StaticResource PoppinsSemiBold}"
+                                        FontSize="14"
+                                        Text="{Binding OnBoardingType}" />
+                                    <Span
+                                        FontFamily="{StaticResource PoppinsRegular}"
+                                        FontSize="14"
+                                        Text="{Binding OnBoardingDescription}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="{Binding ConvertXPFrameBgColor}"
+                        CornerRadius="8"
+                        HasShadow="False"
+                        HeightRequest="24"
+                        HorizontalOptions="CenterAndExpand"
+                        IsEnabled="{Binding ConvertXPFrameEnabled}"
+                        IsVisible="{Binding IsXPConvertVisible}"
+                        WidthRequest="150">
+                        <Label
+                            FontFamily="{StaticResource MonumentRegular}"
+                            FontSize="10"
+                            HorizontalTextAlignment="Center"
+                            Text="{x:Static resource:DFResources.ConvertXPText}"
+                            TextColor="{StaticResource WhiteText}"
+                            TextDecorations="Underline"
+                            TextTransform="Uppercase"
+                            VerticalTextAlignment="Center" />
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ConvertCommand}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="{StaticResource LessonXPFirstColor}"
+                        CornerRadius="8"
+                        HasShadow="False"
+                        HeightRequest="24"
+                        HorizontalOptions="CenterAndExpand"
+                        IsVisible="{Binding IsRedeemDHNVisible}"
+                        WidthRequest="150">
+                        <Label
+                            FontFamily="{StaticResource MonumentRegular}"
+                            FontSize="10"
+                            HorizontalTextAlignment="Center"
+                            Text="{x:Static resource:DFResources.RedeemyourdhnText}"
+                            TextColor="{StaticResource WhiteText}"
+                            TextTransform="Uppercase"
+                            VerticalTextAlignment="Center" />
+                    </Frame>
+                </StackLayout>
+            </Frame>
+            <ImageButton
+                Grid.Row="2"
+                BackgroundColor="Transparent"
+                Command="{Binding NextCommand}"
+                CommandParameter="{Binding .}"
+                HeightRequest="48"
+                Source="{x:Static helper:StringConstant.Cancel}"
+                WidthRequest="48" />
+        </Grid>
+    </ContentPage.Content>
+</page:PopupPage>
