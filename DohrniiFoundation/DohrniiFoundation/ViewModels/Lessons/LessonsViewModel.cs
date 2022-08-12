@@ -17,6 +17,7 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using PropertyChanged;
 using DohrniiFoundation.Models.UserModels;
+using DohrniiFoundation.Messages;
 
 namespace DohrniiFoundation.ViewModels.Lessons
 {
@@ -26,6 +27,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
         #region Private Properties
         private readonly ILessonService _lessonService;   
         private readonly ICacheService _cacheService;
+        private readonly IMessenger _messenger;
         #endregion
 
         #region Public Properties
@@ -46,36 +48,47 @@ namespace DohrniiFoundation.ViewModels.Lessons
         public bool IsXP { get; set; }
         public bool IsJellyFish { get; set; }
         public bool IsDhn { get; set; }
+        public string JellyAmount { get; set; }
+        public bool ShowJellyAmount { get; set; }
         public ICommand ContinueChapterCommand { get; set; }
         public ICommand XPCommand { get; set; }
         public ICommand JellyfishCommand { get; set; }
         public ICommand DHNCommand { get; set; }
         public ICommand CancelCommand { get; set; }
-
+        public ICommand ConvertXPCommand { get; set; }
         public bool ShowLoader { get; set; }
         #endregion
 
         #region Constructor
         public LessonsViewModel()
         {
-            try {
-            ContinueChapterCommand = new Command(ContinueChapterClick);
-            XPCommand = new Command(XPClick);
-            JellyfishCommand = new Command(JellyfishClick);
-            DHNCommand = new Command(DHNCommandClick);
-            CancelCommand = new Command(CancelCommandClick);
-            _lessonService = DependencyService.Get<ILessonService>(); //new LessonService();
-            _cacheService = DependencyService.Get<ICacheService>();
-            ChaptersCategoryList = new ObservableCollection<CategoryModel>();
-            MessagingCenter.Subscribe<ConvertXPToJellyfishViewModel, bool>(this, StringConstant.UpdateUserXPRefresh, async (s, e) =>
+            try 
             {
-                await GetUserStatus();
-            });
-           }
+                ContinueChapterCommand = new Command(ContinueChapterClick);
+                XPCommand = new Command(XPClick);
+                JellyfishCommand = new Command(JellyfishClick);
+                DHNCommand = new Command(DHNCommandClick);
+                CancelCommand = new Command(CancelCommandClick);
+                ConvertXPCommand = new Command(ConvertXPClick);
+                _lessonService = DependencyService.Get<ILessonService>(); //new LessonService();
+                _cacheService = DependencyService.Get<ICacheService>();
+                _messenger = DependencyService.Get<IMessenger>();
+                ChaptersCategoryList = new ObservableCollection<CategoryModel>();
+                Task.Run(async () =>
+                {
+                    await initData();
+                });
+            }
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
             }
+        }
+
+        public void SubscribeEvent()
+        {
+            _messenger.Unsubscribe<UpdateLessonScreen>(this);
+            _messenger.Subscribe<UpdateLessonScreen>(this, UpdateLessonScreen);
         }
 
 
@@ -107,6 +120,38 @@ namespace DohrniiFoundation.ViewModels.Lessons
                     ShowLoader = true;
                 }
                 await UpdateFromServer();
+            }
+            catch (Exception ex)
+            {
+                IsLoading = false;
+                Crashes.TrackError(ex);
+            }
+        }
+
+        protected async void UpdateLessonScreen(object sender, UpdateLessonScreen e)
+        {
+            try
+            {
+                var userStatusResponse = await _lessonService.GetUserStatus();
+                if (userStatusResponse != null)
+                {
+                    UpdateStatus(userStatusResponse);
+                    await _cacheService.SaveUserStatus(userStatusResponse);
+                    var login = await _cacheService.GetCurrentUser();
+                    login.User.TotalXp = userStatusResponse.TotalXP;
+                    login.User.TotalDhn = userStatusResponse.TotalDHN;
+                    login.User.TotalJelly = userStatusResponse.TotalCryptoJelly;
+                    login.User.XpPerCryptojelly = userStatusResponse.XpPerCryptojelly;
+                    await _cacheService.SaveCurrentUser(login);
+                    AppUtil.CurrentUser = login.User;
+                }
+
+                var categoryProgress = await _lessonService.GetCategoryProgress(AppUtil.ChaptersCategorySelected.Id);
+                if (categoryProgress != null)
+                {
+                    UpdateProgress(categoryProgress);
+                    await _cacheService.SaveCategoryProgress(categoryProgress);
+                }
             }
             catch (Exception ex)
             {
@@ -182,9 +227,6 @@ namespace DohrniiFoundation.ViewModels.Lessons
             TotalXP = userStatus.TotalXP;
             TotalCryptoJelly = userStatus.TotalCryptoJelly;
             TotalDHN = Math.Round(userStatus.TotalDHN, 2);
-            AppUtil.UserTotalCryptoJelly = userStatus.TotalCryptoJelly;
-            AppUtil.XPPerCryptoJelly = Convert.ToInt32(userStatus.XpPerCryptojelly);
-            AppUtil.TotalXP = userStatus.TotalXP;
             if (userStatus.LessonsInprogress != null)
             {
                 foreach (var lessonsProgress in userStatus.LessonsInprogress)
@@ -219,6 +261,13 @@ namespace DohrniiFoundation.ViewModels.Lessons
                 {
                     UpdateStatus(userStatusResponse);
                     await _cacheService.SaveUserStatus(userStatusResponse);
+                    var login = await _cacheService.GetCurrentUser();
+                    login.User.TotalXp = userStatusResponse.TotalXP;
+                    login.User.TotalDhn = userStatusResponse.TotalDHN;
+                    login.User.TotalJelly = userStatusResponse.TotalCryptoJelly;
+                    login.User.XpPerCryptojelly = userStatusResponse.XpPerCryptojelly;
+                    await _cacheService.SaveCurrentUser(login);
+                    AppUtil.CurrentUser = login.User;
                 }
                 else
                 {
@@ -335,10 +384,75 @@ namespace DohrniiFoundation.ViewModels.Lessons
             try
             {
                 ShowOnboarding = false;
+                ShowJellyAmount = false;
+                JellyAmount = string.Empty;
             }
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
+            }
+        }
+
+        private async void ConvertXPClick()
+        {
+            try
+            {
+                if (ShowJellyAmount)
+                {
+                    if (!string.IsNullOrEmpty(JellyAmount))
+                    {
+                        int amount = 0;
+                        try
+                        {
+                            amount = Convert.ToInt32(JellyAmount);
+                        }
+                        catch (Exception)
+                        {
+                            await Application.Current.MainPage.DisplayAlert(DFResources.AlertText, DFResources.InvalidJellyAmountText, DFResources.OKText);
+                        }
+                        if(amount > 0)
+                        {
+                            int requiredXP = amount * AppUtil.CurrentUser.XpPerCryptojelly;
+                            if (requiredXP <= AppUtil.CurrentUser.TotalXp)
+                            {
+                                IsLoading = true;
+                                var resp = await _lessonService.ConvertXptoJelly(new XPtoJellyModel { JellyAmount = amount});
+                                if (resp != null)
+                                {
+                                    TotalXP = resp.TotalXp;
+                                    TotalCryptoJelly = resp.TotalJelly;
+                                    AppUtil.CurrentUser = resp;
+                                    var login = await _cacheService.GetCurrentUser();
+                                    login.User = resp;
+                                    await _cacheService.SaveCurrentUser(login);
+                                    ShowOnboarding = false;
+                                    ShowJellyAmount = false;
+                                    JellyAmount = string.Empty;
+                                }
+                                else
+                                {
+                                    await Application.Current.MainPage.Navigation.PushModalAsync(new ResponseErrorPage());
+                                }
+                            }
+                            else
+                            {
+                                await Application.Current.MainPage.DisplayAlert(DFResources.AlertText, string.Format(DFResources.NotEnoughXPText, amount), DFResources.OKText);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    ShowJellyAmount = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 
@@ -394,6 +508,8 @@ namespace DohrniiFoundation.ViewModels.Lessons
                 });
             }
         }
+
+        
         #endregion
     }
 }

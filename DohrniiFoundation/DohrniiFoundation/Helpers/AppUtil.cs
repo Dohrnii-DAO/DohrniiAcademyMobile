@@ -27,9 +27,6 @@ namespace DohrniiFoundation.Helpers
         public static LessonInprogress CurrentLessonInprogress { get; set; }
         public static LessonModel SelectedLesson { get; set; }
         public static LessonClassModel SelectedClass { get; set; }
-        public static int UserTotalCryptoJelly { get; set; }
-        public static int XPPerCryptoJelly { get; set; }
-        public static int TotalXP { get; set; }
         public static string SelectedLessonTypePoints { get; set; }
 
 

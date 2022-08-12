@@ -369,12 +369,11 @@
                     </StackLayout>
                 </ScrollView>
             </Grid>
-
             <view:TabbedView VerticalOptions="EndAndExpand" />
             <Grid
                 BackgroundColor="{DynamicResource OverlayCore}"
-                IsVisible="{Binding ShowOnboarding}"
                 HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding ShowOnboarding}"
                 VerticalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -546,7 +545,7 @@
                         <Frame
                             Grid.Row="1"
                             Margin="0,0,0,16"
-                            Padding="16,16,16,35"
+                            Padding="16,16,16,25"
                             BackgroundColor="{DynamicResource White}"
                             CornerRadius="16"
                             HasShadow="False"
@@ -555,11 +554,14 @@
                             <Grid>
                                 <StackLayout IsVisible="{Binding IsXP}">
                                     <Label
-                                    FontSize="14"
-                                    Style="{DynamicResource lblMonumentRegular}"
-                                    Text="{x:Static resource:DFResources.WhatisXPText}"
-                                    TextColor="{DynamicResource BoardingTitleColor}"/>
-                                    <BoxView HeightRequest="1" BackgroundColor="{DynamicResource BorderColor2}" Margin="0,5,0,0"/>
+                                        FontSize="14"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{x:Static resource:DFResources.WhatisXPText}"
+                                        TextColor="{DynamicResource BoardingTitleColor}" />
+                                    <BoxView
+                                        Margin="0,5,0,0"
+                                        BackgroundColor="{DynamicResource BorderColor2}"
+                                        HeightRequest="1" />
                                     <Label Margin="0,16,0,0">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -581,14 +583,60 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Frame
+                                            Margin="50,20,50,0"
+                                            Padding="0"
+                                            BorderColor="{DynamicResource PrimaryColor}"
+                                            CornerRadius="5"
+                                            HasShadow="False"
+                                            IsVisible="{Binding ShowJellyAmount}">
+                                            <controls:NoOutlineEntry
+                                                Margin="8,0,0,0"
+                                                FontSize="10"
+                                                Keyboard="Numeric"
+                                                Placeholder="{x:Static resource:DFResources.JellyAmountText}"
+                                                Style="{DynamicResource txtPoppinsRegular}"
+                                                Text="{Binding JellyAmount}" />
+                                        </Frame>
+                                        <Frame
+                                            Grid.Row="1"
+                                            Margin="50,5,50,0"
+                                            Padding="9"
+                                            BackgroundColor="{DynamicResource ConvertBG}"
+                                            CornerRadius="20"
+                                            HasShadow="False">
+                                            <Label
+                                                Padding="0,5,0,5"
+                                                FontSize="10"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Style="{DynamicResource lblMonumentRegular}"
+                                                Text="{x:Static resource:DFResources.ConvertXPText}"
+                                                TextColor="{DynamicResource White}"
+                                                TextDecorations="Underline"
+                                                TextTransform="Uppercase" />
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding ConvertXPCommand}" NumberOfTapsRequired="1" />
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                                    </Grid>
+
                                 </StackLayout>
                                 <StackLayout IsVisible="{Binding IsJellyFish}">
                                     <Label
-                                    FontSize="14"
-                                    Style="{DynamicResource lblMonumentRegular}"
-                                    Text="{x:Static resource:DFResources.WhatisCryptoJellyText}"
-                                    TextColor="{DynamicResource BoardingTitleColor}"/>
-                                    <BoxView HeightRequest="1" BackgroundColor="{DynamicResource BorderColor2}" Margin="0,5,0,0"/>
+                                        FontSize="14"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{x:Static resource:DFResources.WhatisCryptoJellyText}"
+                                        TextColor="{DynamicResource BoardingTitleColor}" />
+                                    <BoxView
+                                        Margin="0,5,0,0"
+                                        BackgroundColor="{DynamicResource BorderColor2}"
+                                        HeightRequest="1" />
                                     <Label Margin="0,16,0,0">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -613,11 +661,14 @@
                                 </StackLayout>
                                 <StackLayout IsVisible="{Binding IsDhn}">
                                     <Label
-                                    FontSize="14"
-                                    Style="{DynamicResource lblMonumentRegular}"
-                                    Text="{x:Static resource:DFResources.WhatisDHNText}"
-                                    TextColor="{DynamicResource BoardingTitleColor}"/>
-                                    <BoxView HeightRequest="1" BackgroundColor="{DynamicResource BorderColor2}" Margin="0,5,0,0"/>
+                                        FontSize="14"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{x:Static resource:DFResources.WhatisDHNText}"
+                                        TextColor="{DynamicResource BoardingTitleColor}" />
+                                    <BoxView
+                                        Margin="0,5,0,0"
+                                        BackgroundColor="{DynamicResource BorderColor2}"
+                                        HeightRequest="1" />
                                     <Label Margin="0,16,0,0">
                                         <Label.FormattedText>
                                             <FormattedString>

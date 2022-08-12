@@ -16,6 +16,7 @@ namespace DohrniiFoundation
             DependencyService.Register<ISocialService, SocialService>();
             DependencyService.Register<ICacheService, CacheService>();
             DependencyService.Register<IAppState, AppState>();
+            DependencyService.Register<IMessenger, FormsMessenger>();
         }
     }
 }

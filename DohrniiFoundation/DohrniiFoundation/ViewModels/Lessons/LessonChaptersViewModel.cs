@@ -1,5 +1,6 @@
 ﻿using DohrniiFoundation.Helpers;
 using DohrniiFoundation.IServices;
+using DohrniiFoundation.Messages;
 using DohrniiFoundation.Models.APIRequestModel.Lessons;
 using DohrniiFoundation.Models.APIResponseModels;
 using DohrniiFoundation.Models.APIResponseModels.Lessons;
@@ -29,6 +30,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
         private readonly ILessonService _lessonService;
         private readonly IAppState _appState;
         private readonly ICacheService _cacheService;
+        private readonly IMessenger _messenger;
 
         #endregion
 
@@ -53,6 +55,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
         public string XPTokensCollected { get; set; }
         public string TotalXPCollected { get; set; }
         public decimal XPTotalProgress { get; set; }
+        public bool ShowUnlockQuiz { get; set; }
         public Color LastProgressFrameColor { get; set; } = (Color)Application.Current.Resources["LessonSegmentColor"];
         public int Position { get; set; }
         public ClassModel ClassCurrentItem { get; set; }
@@ -85,6 +88,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
                 _lessonService = DependencyService.Get<ILessonService>(); //new LessonService();
                 _appState = DependencyService.Get<IAppState>();
                 _cacheService = DependencyService.Get<ICacheService>();
+                _messenger = DependencyService.Get<IMessenger>();
                 CancelCommand = new Command(CancelClick);
                 ContinueLessonCommand = new Command(ContinueClick);
             }
@@ -96,6 +100,32 @@ namespace DohrniiFoundation.ViewModels.Lessons
         #endregion
 
         #region Methods      
+
+        public void InitData()
+        {
+            _messenger.Unsubscribe<UpdateChapterDetailScreen>(this);
+            _messenger.Subscribe<UpdateChapterDetailScreen>(this, UpdateChapterDetailScreen);
+            GetChapterDetails(AppUtil.CurrentLessonInprogress.ChapterId);
+        }
+
+        protected async void UpdateChapterDetailScreen(object sender, UpdateChapterDetailScreen e)
+        {
+            try
+            {
+                var chapterResponse = await _lessonService.GetChapter(AppUtil.CurrentLessonInprogress.ChapterId);
+                if (chapterResponse != null)
+                {
+                    this.ChapterDetail = chapterResponse;
+                    _appState.ChapterDetail = chapterResponse;
+                    await _cacheService.SaveChapterDetail(chapterResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                IsLoading = false;
+                Crashes.TrackError(ex);
+            }
+        }
 
         public async void GetChapterDetails(int chapterId)
         {

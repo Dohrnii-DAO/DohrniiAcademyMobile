@@ -570,4 +570,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\mbiometric.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\padlock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\mlocked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\munlocked.png" />
+  </ItemGroup>
 </Project>

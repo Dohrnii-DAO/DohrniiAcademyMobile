@@ -24,7 +24,7 @@ namespace DohrniiFoundation.Views.Lessons
 
         protected override void OnAppearing()
         {
-            lessonChaptersVM.GetChapterDetails(AppUtil.CurrentLessonInprogress.ChapterId);
+            lessonChaptersVM.InitData();
         }
 
         private void LessonsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)

@@ -23,5 +23,6 @@ namespace DohrniiFoundation.IServices
         Task<ChapterModel> GetChapterDetail(string chapterId);
         Task<List<CategoryModel>> GetCategories();
         Task SaveCategories(List<CategoryModel> data);
+        Task Logout();
     }
 }

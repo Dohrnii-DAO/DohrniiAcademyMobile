@@ -20,6 +20,7 @@ namespace DohrniiFoundation.IServices
         Task<StartResponseModel> StartClass(StartRequestModel model);
         Task<CompleteResponseModel> CompleteClass(CompleteRequestModel model);
         Task<QuestionAttemptResp> AttemptQuestion(QuestionAttemptModel model);
+        Task<User> ConvertXptoJelly(XPtoJellyModel model);
 
 
 

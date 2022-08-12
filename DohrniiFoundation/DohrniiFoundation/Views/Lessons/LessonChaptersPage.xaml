@@ -46,7 +46,7 @@
                 VerticalOptions="StartAndExpand" />
 
             <ScrollView Grid.Row="1">
-                <Grid>
+                <Grid Padding="0,0,0,70">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
@@ -80,6 +80,10 @@
                         BackgroundColor="{DynamicResource Transparent}"
                         HorizontalOptions="FillAndExpand"
                         IsVisible="true">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1.5" />
                             <ColumnDefinition Width="*" />
@@ -224,6 +228,105 @@
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
+
+                        <Frame
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="0,16,0,0"
+                            Padding="9"
+                            Background="{DynamicResource UnlockQuizGradient}"
+                            CornerRadius="5"
+                            HasShadow="False">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout>
+                                    <Label
+                                        FontSize="9"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{Binding ChapterDetail.Name}"
+                                        TextColor="{DynamicResource White}" />
+                                    <Label
+                                        Margin="0,-12,0,0"
+                                        FontSize="28"
+                                        Style="{DynamicResource lblMonumentUltra}"
+                                        Text="{x:Static resource:DFResources.QuizzText}"
+                                        TextColor="{DynamicResource White}" />
+                                </StackLayout>
+                                <StackLayout
+                                    Grid.Column="1"
+                                    Margin="0,7,0,0"
+                                    Orientation="Horizontal"
+                                    Spacing="16">
+                                    <StackLayout>
+                                        <Frame
+                                            Padding="3,0,3,0"
+                                            BackgroundColor="{DynamicResource Transparent}"
+                                            BorderColor="{DynamicResource White}"
+                                            CornerRadius="5"
+                                            HasShadow="False"
+                                            HorizontalOptions="CenterAndExpand">
+                                            <Label
+                                                FontSize="11"
+                                                Style="{DynamicResource lblMonumentRegular}"
+                                                Text="{x:Static resource:DFResources.RewardText}"
+                                                TextColor="{DynamicResource White}" />
+                                        </Frame>
+                                        <StackLayout
+                                            Margin="0,-5,0,0"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                FontSize="11"
+                                                Style="{DynamicResource lblMonumentRegular}"
+                                                Text="50"
+                                                TextColor="{DynamicResource White}" />
+                                            <Label
+                                                FontSize="11"
+                                                Style="{DynamicResource lblMonumentRegular}"
+                                                Text="{x:Static resource:DFResources.DHNText}"
+                                                TextColor="{DynamicResource White}" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <StackLayout>
+                                        <Frame
+                                            Padding="3,0,3,0"
+                                            BackgroundColor="{DynamicResource Transparent}"
+                                            BorderColor="{DynamicResource White}"
+                                            CornerRadius="5"
+                                            HasShadow="False"
+                                            HorizontalOptions="CenterAndExpand">
+                                            <Label
+                                                FontSize="11"
+                                                Style="{DynamicResource lblMonumentRegular}"
+                                                Text="{x:Static resource:DFResources.UnlockedText}"
+                                                TextColor="{DynamicResource White}" />
+                                        </Frame>
+                                        <StackLayout
+                                            Margin="0,-5,0,0"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Orientation="Horizontal">
+                                            <Label
+                                                FontSize="11"
+                                                Style="{DynamicResource lblMonumentRegular}"
+                                                Text="1"
+                                                TextColor="{DynamicResource White}" />
+                                            <Label
+                                                FontSize="11"
+                                                Style="{DynamicResource lblMonumentRegular}"
+                                                Text="{x:Static resource:DFResources.JellyText}"
+                                                TextColor="{DynamicResource White}" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowUnlockCommand}" NumberOfTapsRequired="1" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
                     </Grid>
                 </Grid>
             </ScrollView>
@@ -453,6 +556,175 @@
                     Command="{Binding CancelCommand}"
                     Source="Close.png"
                     VerticalOptions="StartAndExpand" />
+            </Grid>
+            <Grid
+                Grid.RowSpan="2"
+                BackgroundColor="{DynamicResource Black5}"
+                IsVisible="{Binding ShowUnlockQuiz}">
+                <Frame
+                    Margin="0,0,0,-15"
+                    BackgroundColor="{DynamicResource White}"
+                    CornerRadius="20"
+                    HeightRequest="400"
+                    VerticalOptions="EndAndExpand">
+                    <StackLayout>
+                        <StackLayout Margin="20" IsVisible="false">
+                            <StackLayout.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding ChapterDetail.IsQuizUnlocked}"
+                                    TargetType="StackLayout"
+                                    Value="true">
+                                    <Setter Property="IsVisible" Value="True" />
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                            <Frame
+                                Margin="0,10,0,10"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="60"
+                                HeightRequest="120"
+                                HorizontalOptions="CenterAndExpand"
+                                WidthRequest="120">
+                                <Image
+                                    HeightRequest="80"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Source="padlock.png"
+                                    VerticalOptions="CenterAndExpand"
+                                    WidthRequest="80" />
+                            </Frame>
+                            <Label
+                                FontSize="20"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{DynamicResource lblMonumentBold}"
+                                Text="{Binding ChapterDetail.Name, StringFormat='{}{0} Unlocked'}"
+                                TextColor="{DynamicResource PrimaryTextColor}" />
+                            <Label
+                                FontSize="14"
+                                HorizontalOptions="CenterAndExpand"
+                                HorizontalTextAlignment="Center"
+                                Style="{DynamicResource lblPoppinsRegular}"
+                                Text="{x:Static resource:DFResources.UnlockQuizSubtitle}"
+                                TextColor="{DynamicResource GrayTextColor}" />
+                            <StackLayout
+                                Margin="0,70,0,0"
+                                HorizontalOptions="CenterAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="30">
+                                <Frame
+                                    Margin="0"
+                                    Padding="9"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    CornerRadius="20"
+                                    HasShadow="False"
+                                    WidthRequest="150">
+                                    <Label
+                                        Padding="0,5,0,5"
+                                        FontSize="10"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{x:Static resource:DFResources.StartQuizText}"
+                                        TextColor="{DynamicResource White}"
+                                        TextDecorations="Underline"
+                                        TextTransform="Uppercase" />
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding StartQuizCommand}" NumberOfTapsRequired="1" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                                <Frame
+                                    Margin="0"
+                                    Padding="9"
+                                    BackgroundColor="{DynamicResource White}"
+                                    BorderColor="{DynamicResource BorderColor2}"
+                                    CornerRadius="20"
+                                    HasShadow="False"
+                                    WidthRequest="150">
+                                    <Label
+                                        Padding="0,5,0,5"
+                                        FontSize="10"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{x:Static resource:DFResources.CancelText}"
+                                        TextColor="{DynamicResource PrimaryTextColor}"
+                                        TextDecorations="Underline"
+                                        TextTransform="Uppercase" />
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding CloseUnlockCommand}" NumberOfTapsRequired="1" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Margin="20" IsVisible="false">
+                            <StackLayout.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding ChapterDetail.IsQuizUnlocked}"
+                                    TargetType="StackLayout"
+                                    Value="false">
+                                    <Setter Property="IsVisible" Value="True" />
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                            <Frame
+                                Margin="0,10,0,10"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="60"
+                                HeightRequest="120"
+                                HorizontalOptions="CenterAndExpand"
+                                WidthRequest="120">
+                                <Image
+                                    HeightRequest="80"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Source="mlocked.png"
+                                    VerticalOptions="CenterAndExpand"
+                                    WidthRequest="80" />
+                            </Frame>
+                            <Label
+                                FontSize="20"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{DynamicResource lblMonumentBold}"
+                                Text="{Binding ChapterDetail.Name}"
+                                TextColor="{DynamicResource PrimaryTextColor}" />
+                            <Label
+                                FontSize="14"
+                                HorizontalOptions="CenterAndExpand"
+                                HorizontalTextAlignment="Center"
+                                Style="{DynamicResource lblPoppinsRegular}"
+                                Text="{x:Static resource:DFResources.ClickHereToUlockChapteQuizText}"
+                                TextColor="{DynamicResource GrayTextColor}" />
+                            <StackLayout
+                                Margin="0,100,0,0"
+                                HorizontalOptions="CenterAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="30">
+                                <Frame
+                                    Margin="0"
+                                    Padding="9"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    CornerRadius="20"
+                                    HasShadow="False"
+                                    WidthRequest="150">
+                                    <Label
+                                        Padding="0,5,0,5"
+                                        FontSize="10"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Style="{DynamicResource lblMonumentRegular}"
+                                        Text="{x:Static resource:DFResources.UnlockedText}"
+                                        TextColor="{DynamicResource White}"
+                                        TextDecorations="Underline"
+                                        TextTransform="Uppercase" />
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding UnlockQuizCommand}" NumberOfTapsRequired="1" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding IgnoreCommand}" NumberOfTapsRequired="1" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CloseUnlockCommand}" NumberOfTapsRequired="1" />
+                </Grid.GestureRecognizers>
             </Grid>
             <view:NoInternetView Grid.RowSpan="2" IsVisible="{Binding IsInternet}" />
             <view:Loader Grid.RowSpan="2" IsVisible="{Binding IsLoading}" />

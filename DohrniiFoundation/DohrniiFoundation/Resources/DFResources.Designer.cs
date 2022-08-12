@@ -360,6 +360,15 @@ namespace DohrniiFoundation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click button below to unlock this chapter quiz.
+        /// </summary>
+        internal static string ClickHereToUlockChapteQuizText {
+            get {
+                return ResourceManager.GetString("ClickHereToUlockChapteQuizText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collect more XP to Convert.
         /// </summary>
         internal static string CollectmoreXPtoConvertText {
@@ -873,6 +882,15 @@ namespace DohrniiFoundation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Jelly amount!.
+        /// </summary>
+        internal static string InvalidJellyAmountText {
+            get {
+                return ResourceManager.GetString("InvalidJellyAmountText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Investor&apos;s Profile.
         /// </summary>
         internal static string InvestorText {
@@ -905,6 +923,15 @@ namespace DohrniiFoundation.Resources {
         internal static string JelleyfishText {
             get {
                 return ResourceManager.GetString("JelleyfishText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jelly Amount.
+        /// </summary>
+        internal static string JellyAmountText {
+            get {
+                return ResourceManager.GetString("JellyAmountText", resourceCulture);
             }
         }
         
@@ -1274,6 +1301,15 @@ namespace DohrniiFoundation.Resources {
         internal static string NoInternetConnectionText {
             get {
                 return ResourceManager.GetString("NoInternetConnectionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have enought XP to convert to {0} Crypto Jelly.
+        /// </summary>
+        internal static string NotEnoughXPText {
+            get {
+                return ResourceManager.GetString("NotEnoughXPText", resourceCulture);
             }
         }
         
@@ -1732,7 +1768,7 @@ namespace DohrniiFoundation.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reward.
+        ///   Looks up a localized string similar to Rewards.
         /// </summary>
         internal static string RewardText {
             get {
@@ -1975,6 +2011,15 @@ namespace DohrniiFoundation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start Quiz.
+        /// </summary>
+        internal static string StartQuizText {
+            get {
+                return ResourceManager.GetString("StartQuizText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Strategies.
         /// </summary>
         internal static string StrategiesText {
@@ -2133,6 +2178,15 @@ namespace DohrniiFoundation.Resources {
         internal static string UnlockedText {
             get {
                 return ResourceManager.GetString("UnlockedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can now start quiz by clicking on start button.
+        /// </summary>
+        internal static string UnlockQuizSubtitle {
+            get {
+                return ResourceManager.GetString("UnlockQuizSubtitle", resourceCulture);
             }
         }
         

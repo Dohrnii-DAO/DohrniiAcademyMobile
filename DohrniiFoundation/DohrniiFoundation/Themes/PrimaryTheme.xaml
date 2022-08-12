@@ -17,6 +17,8 @@
     <Color x:Key="Black75">#BF000000</Color>
     <Color x:Key="Black70">#B3000000</Color>
     <Color x:Key="Black60">#99000000</Color>
+    <Color x:Key="Black10">#A1000000</Color>
+    <Color x:Key="Black5">#33000000</Color>
     <Color x:Key="PrimaryBgColor">#E7EBEC</Color>
     <Color x:Key="White">#ffffff</Color>
     <Color x:Key="Grey">#dddddd</Color>
@@ -36,6 +38,7 @@
     <Color x:Key="WalletAddressBG">#8EC0FE</Color>
     <Color x:Key="CorrectAnsColor">#81C784</Color>
     <Color x:Key="WrongAnsColor">#D64D75</Color>
+    <Color x:Key="ConvertBG">#FFB7A3</Color>
 
     <Style x:Key="lblMonumentBold" TargetType="Label">
         <Setter Property="FontFamily" Value="MonumentBold" />
@@ -122,6 +125,10 @@
     <LinearGradientBrush x:Key="RedCompletedGradient" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0.1" Color="#FFB4A2" />
         <GradientStop Offset="1.0" Color="#E76985" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="UnlockQuizGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0.1" Color="#7D3AD0" />
+        <GradientStop Offset="1.0" Color="#51198F" />
     </LinearGradientBrush>
 
 

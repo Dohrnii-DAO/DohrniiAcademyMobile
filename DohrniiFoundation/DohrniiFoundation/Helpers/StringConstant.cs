@@ -47,11 +47,11 @@ namespace DohrniiFoundation.Helpers
 #if DEBUG
         public const string APIAndroidBaseURL = "https://10.0.2.2:7188";
         public const string APIiOSBaseURL = "https://localhost:7188";
-        //public const string APIAndroidBaseURL = "https://dohrniibackoffice.azurewebsites.net";
-        //public const string APIiOSBaseURL = "https://dohrniibackoffice.azurewebsites.net";
+        //public const string APIAndroidBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
+        //public const string APIiOSBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
 #else
-        public const string APIAndroidBaseURL = "https://dohrniibackoffice.azurewebsites.net";
-        public const string APIiOSBaseURL = "https://dohrniibackoffice.azurewebsites.net";
+        public const string APIAndroidBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
+        public const string APIiOSBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
 #endif
 
 
@@ -80,6 +80,7 @@ namespace DohrniiFoundation.Helpers
         public const string StartClassEndPoint = "/api/classes/start/";
         public const string CompleteClassEndPoint = "/api/classes/complete/";
         public const string QuetionAttemptEndPoint = "/api/Classes/questionattempt/";
+        public const string XPtoJellyEndPoint = "/api/User/convert/xptojelly/";
 
         #endregion
 

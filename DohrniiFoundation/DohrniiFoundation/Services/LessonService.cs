@@ -219,5 +219,25 @@ namespace DohrniiFoundation.Services
             }
             return resp;
         }
+
+        public async Task<User> ConvertXptoJelly(XPtoJellyModel model)
+        {
+            User resp = null;
+            try
+            {
+                string serializedRequest = JsonConvert.SerializeObject(model);
+                ResponseModel response = await serviceHelpers.PostRequestAsync(serializedRequest, StringConstant.XPtoJellyEndPoint, true, AppUtil.AccessToken);
+
+                if (response.IsSuccess)
+                {
+                    resp = JsonConvert.DeserializeObject<User>(response.Data); ;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            return resp;
+        }
     }
 }

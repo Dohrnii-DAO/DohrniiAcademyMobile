@@ -93,5 +93,10 @@ namespace DohrniiFoundation.Services
             Barrel.Current.Empty(key: "categories");
             Barrel.Current.Add(key: "categories", data: data, expireIn: TimeSpan.FromDays(StringConstant.CacheDuration));
         }
+
+        public async Task Logout()
+        {
+            Barrel.Current.EmptyAll();
+        }
     }
 }

@@ -187,7 +187,7 @@ namespace DohrniiFoundation.ViewModels.More
             try
             {
                 Preferences.Remove("accessToken");
-                await _cacheService.RemoveCurrentUser();
+                await _cacheService.Logout();
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
             }
             catch (Exception ex)

@@ -13,21 +13,18 @@ namespace DohrniiFoundation.Views.Lessons
         {
             InitializeComponent();
         }
-        protected async override void OnAppearing()
-        {
-            await GetStatus();
-        }
-        private async Task GetStatus()
+        protected override void OnAppearing()
         {
             try
             {
-                await lessonsVM.initData();
+                lessonsVM.SubscribeEvent();
             }
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
             }
         }
+        
         protected override bool OnBackButtonPressed()
         {
             return true;

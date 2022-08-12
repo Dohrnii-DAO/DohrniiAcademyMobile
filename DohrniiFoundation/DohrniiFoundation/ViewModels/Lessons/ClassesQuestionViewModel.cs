@@ -1,5 +1,6 @@
 ﻿using DohrniiFoundation.Helpers;
 using DohrniiFoundation.IServices;
+using DohrniiFoundation.Messages;
 using DohrniiFoundation.Models;
 using DohrniiFoundation.Models.APIRequestModel.Lessons;
 using DohrniiFoundation.Models.APIResponseModels.Lessons;
@@ -28,6 +29,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
         private readonly ILessonService _lessonService;
         private readonly IPlatformHelper _platformHelper;
         private static IAppState _appState;
+        private readonly IMessenger _messenger;
         public ICommand CheckAndContinueCommand { get; set; }
         public ICommand ContinueToClassCommand { get; set; }
         public LessonClassModel SelectedClass { get; set; }
@@ -95,6 +97,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
             _lessonService = DependencyService.Get<ILessonService>(); //new LessonService();
             _platformHelper = DependencyService.Get<IPlatformHelper>();
             _appState = DependencyService.Get<IAppState>();
+            _messenger = DependencyService.Get<IMessenger>();
             SelectedClass = AppUtil.SelectedClass;
             CheckAndContinueCommand = new Command(CheckAndContinueClick);
             ContinueToClassCommand = new Command(ContinueToClassClick);
@@ -336,6 +339,9 @@ namespace DohrniiFoundation.ViewModels.Lessons
                             }
                             this.IsCompleted = true;
                         }
+
+                        _messenger.Send(new UpdateChapterDetailScreen());
+                        _messenger.Send(new UpdateLessonScreen());
                     }
                 }
             }
