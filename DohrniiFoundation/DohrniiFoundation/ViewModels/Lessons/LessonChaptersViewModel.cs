@@ -41,8 +41,6 @@ namespace DohrniiFoundation.ViewModels.Lessons
         public LessonModel SelectedLesson { get; set; }
         public ObservableCollection<ChaptersModel> ChaptersList { get; set; }
         public bool ShowClasses { get; set; }
-
-
         public ObservableCollection<ProgressBarModel> ProgressBarList { get; set; }
         public ObservableCollection<ClassesProgressBarModel> ClassesProgressBarList { get; set; }
         public ObservableCollection<ClassModel> ClasseslList { get; set; }
@@ -56,11 +54,15 @@ namespace DohrniiFoundation.ViewModels.Lessons
         public string TotalXPCollected { get; set; }
         public decimal XPTotalProgress { get; set; }
         public bool ShowUnlockQuiz { get; set; }
+        public bool ShowUnlockButton { get; set; }
         public Color LastProgressFrameColor { get; set; } = (Color)Application.Current.Resources["LessonSegmentColor"];
-        public int Position { get; set; }
+        public int Position { get; set; }   
         public ClassModel ClassCurrentItem { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand ContinueLessonCommand { get; set; }
+        public ICommand ShowUnlockCommand { get; set; }
+        public ICommand CloseUnlockCommand { get; set; }
+        public ICommand StartQuizCommand { get; set; }
         public override Command BackCommand
         {
             get
@@ -91,6 +93,9 @@ namespace DohrniiFoundation.ViewModels.Lessons
                 _messenger = DependencyService.Get<IMessenger>();
                 CancelCommand = new Command(CancelClick);
                 ContinueLessonCommand = new Command(ContinueClick);
+                ShowUnlockCommand = new Command(ShowUnlockClick);
+                CloseUnlockCommand = new Command(ShowUnlockClick);
+                StartQuizCommand = new Command(StartQuizClick);
             }
             catch (Exception ex)
             {
@@ -125,6 +130,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
                 IsLoading = false;
                 Crashes.TrackError(ex);
             }
+            
         }
 
         public async void GetChapterDetails(int chapterId)
@@ -138,6 +144,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
                     this.ChapterDetail = cacheData;
                     _appState.ChapterDetail = cacheData;
                     IsLoading = false;
+                    ShowUnlockButton = true;
                 }
                 var chapterResponse = await _lessonService.GetChapter(chapterId);
                 if (chapterResponse != null)
@@ -158,6 +165,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
             finally
             {
                 IsLoading = false;
+                ShowUnlockButton = true;
             }
         }
 
@@ -171,6 +179,45 @@ namespace DohrniiFoundation.ViewModels.Lessons
             {
                 Crashes.TrackError(ex);
             }
+        }
+        private void ShowUnlockClick()
+        {
+            try
+            {
+                ShowUnlockQuiz = !ShowUnlockQuiz;
+            }
+            catch (Exception ex)
+            {
+                ShowUnlockQuiz = false;
+                Crashes.TrackError(ex);
+            }
+        }
+        private async void StartQuizClick()
+        {
+            //try
+            //{
+            //    IsLoading = true;
+            //    var chapterResponse = await _lessonService.GetChapter(0);
+            //    if (chapterResponse != null)
+            //    {
+            //        this.ChapterDetail = chapterResponse;
+            //        _appState.ChapterDetail = chapterResponse;
+            //        await _cacheService.SaveChapterDetail(chapterResponse);
+            //    }
+            //    else
+            //    {
+            //        await Application.Current.MainPage.Navigation.PushModalAsync(new ResponseErrorPage());
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Crashes.TrackError(ex);
+            //}
+            //finally
+            //{
+            //    IsLoading = false;
+            //    ShowUnlockButton = true;
+            //}
         }
         private async void ContinueClick()
         {

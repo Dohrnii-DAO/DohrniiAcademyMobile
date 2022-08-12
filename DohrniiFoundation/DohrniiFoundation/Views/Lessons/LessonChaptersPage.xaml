@@ -234,6 +234,7 @@
                             Grid.Column="1"
                             Margin="0,16,0,0"
                             Padding="9"
+                            IsVisible="{Binding ShowUnlockButton}"
                             Background="{DynamicResource UnlockQuizGradient}"
                             CornerRadius="5"
                             HasShadow="False">
@@ -489,13 +490,6 @@
                                                     </Image.Triggers>
                                                 </Image>
                                             </StackLayout>
-
-                                            <!--<Grid.GestureRecognizers>
-                                                <TapGestureRecognizer
-                                                BindingContext="{Binding Source={x:Reference LessonsList}, Path=BindingContext}"
-                                                Command="{Binding LessonSelectedCommand}"
-                                                CommandParameter="{Binding Source={x:Reference LessonsItem}, Path=BindingContext}" />
-                                            </Grid.GestureRecognizers>-->
                                         </Grid>
                                     </DataTemplate>
                                 </BindableLayout.ItemTemplate>
@@ -565,6 +559,7 @@
                     Margin="0,0,0,-15"
                     BackgroundColor="{DynamicResource White}"
                     CornerRadius="20"
+                    HasShadow="False"
                     HeightRequest="400"
                     VerticalOptions="EndAndExpand">
                     <StackLayout>
@@ -667,6 +662,7 @@
                                 Padding="0"
                                 BackgroundColor="{DynamicResource PrimaryColor}"
                                 CornerRadius="60"
+                                HasShadow="False"
                                 HeightRequest="120"
                                 HorizontalOptions="CenterAndExpand"
                                 WidthRequest="120">
