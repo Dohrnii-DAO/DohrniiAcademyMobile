@@ -239,5 +239,82 @@ namespace DohrniiFoundation.Services
             }
             return resp;
         }
+
+        public async Task<User> UnlockChapterQuiz(UnlockQuizModel model)
+        {
+            User resp = null;
+            try
+            {
+                string serializedRequest = JsonConvert.SerializeObject(model);
+                ResponseModel response = await serviceHelpers.PostRequestAsync(serializedRequest, StringConstant.UnlockQuizEndPoint, true, AppUtil.AccessToken);
+
+                if (response.IsSuccess)
+                {
+                    resp = JsonConvert.DeserializeObject<User>(response.Data); ;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            return resp;
+        }
+
+        public async Task<List<ChapterQuestionModel>> GetChapterQuestions(int chapterId)
+        {
+            try
+            {
+                ResponseModel response = await serviceHelpers.GetRequestAsync(StringConstant.GetChapterQuestionsEndPoint.Replace("{id}", chapterId.ToString()), true, AppUtil.AccessToken);
+                if (response.IsSuccess)
+                {
+                    var questions = JsonConvert.DeserializeObject<List<ChapterQuestionModel>>(response.Data);
+                    return questions;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            return null;
+        }
+        public async Task<QuestionAttemptResp> AttemptQuizQuestion(QuizAttempt model)
+        {
+            QuestionAttemptResp resp = null;
+            try
+            {
+                string serializedRequest = JsonConvert.SerializeObject(model);
+                ResponseModel response = await serviceHelpers.PostRequestAsync(serializedRequest, StringConstant.QuizAttemptEndPoint, true, AppUtil.AccessToken);
+
+                if (response.IsSuccess)
+                {
+                    resp = JsonConvert.DeserializeObject<QuestionAttemptResp>(response.Data); ;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            return resp;
+        }
+
+        public async Task<User> AwardDHN(AwardDhn model)
+        {
+            User resp = null;
+            try
+            {
+                string serializedRequest = JsonConvert.SerializeObject(model);
+                ResponseModel response = await serviceHelpers.PostRequestAsync(serializedRequest, StringConstant.AwardDHNEndPoint, true, AppUtil.AccessToken);
+
+                if (response.IsSuccess)
+                {
+                    resp = JsonConvert.DeserializeObject<User>(response.Data); ;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            return resp;
+        }
     }
 }

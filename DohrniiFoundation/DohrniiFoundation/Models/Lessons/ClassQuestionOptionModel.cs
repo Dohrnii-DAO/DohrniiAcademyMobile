@@ -21,6 +21,18 @@ namespace DohrniiFoundation.Models.Lessons
         public bool IsCurrentQtnTypeCloseEnded { get; set; }
         public bool IsSelected { get; set; }
         public bool IsChecked { get; set; }
+
+        public string StatusImg
+        {
+            get
+            {
+                if (IsAnswer)
+                {
+                    return StringConstant.correctAttempt;
+                }
+                return StringConstant.failedAttempt;
+            }
+        }
         public string BGColor
         {
             get

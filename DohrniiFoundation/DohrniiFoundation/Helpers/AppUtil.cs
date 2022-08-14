@@ -27,6 +27,7 @@ namespace DohrniiFoundation.Helpers
         public static LessonInprogress CurrentLessonInprogress { get; set; }
         public static LessonModel SelectedLesson { get; set; }
         public static LessonClassModel SelectedClass { get; set; }
+        public static ChapterModel SelectedChapter { get; set; }
         public static string SelectedLessonTypePoints { get; set; }
 
 

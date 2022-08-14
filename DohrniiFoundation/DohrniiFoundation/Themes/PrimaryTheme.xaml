@@ -39,6 +39,8 @@
     <Color x:Key="CorrectAnsColor">#81C784</Color>
     <Color x:Key="WrongAnsColor">#D64D75</Color>
     <Color x:Key="ConvertBG">#FFB7A3</Color>
+    <Color x:Key="StatusColor">#DE50F1</Color>
+    <Color x:Key="DarkStatusColor">#716E71</Color>
 
     <Style x:Key="lblMonumentBold" TargetType="Label">
         <Setter Property="FontFamily" Value="MonumentBold" />
@@ -129,6 +131,14 @@
     <LinearGradientBrush x:Key="UnlockQuizGradient" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0.1" Color="#7D3AD0" />
         <GradientStop Offset="1.0" Color="#51198F" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="UnlockStatusGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0.1" Color="#DE50F1" />
+        <GradientStop Offset="1.0" Color="#F881FA" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="LockedQuizGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0.1" Color="#F5F5F5" />
+        <GradientStop Offset="1.0" Color="#707070" />
     </LinearGradientBrush>
 
 

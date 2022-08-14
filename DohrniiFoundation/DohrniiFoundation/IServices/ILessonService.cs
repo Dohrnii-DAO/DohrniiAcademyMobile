@@ -21,8 +21,10 @@ namespace DohrniiFoundation.IServices
         Task<CompleteResponseModel> CompleteClass(CompleteRequestModel model);
         Task<QuestionAttemptResp> AttemptQuestion(QuestionAttemptModel model);
         Task<User> ConvertXptoJelly(XPtoJellyModel model);
-
-
+        Task<User> UnlockChapterQuiz(UnlockQuizModel model);
+        Task<List<ChapterQuestionModel>> GetChapterQuestions(int chapterId);
+        Task<QuestionAttemptResp> AttemptQuizQuestion(QuizAttempt model);
+        Task<User> AwardDHN(AwardDhn model);
 
     }
 }

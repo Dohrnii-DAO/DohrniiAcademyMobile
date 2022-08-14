@@ -229,105 +229,205 @@
                             </BindableLayout.ItemTemplate>
                         </StackLayout>
 
-                        <Frame
+                        <StackLayout
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="0,16,0,0"
-                            Padding="9"
-                            IsVisible="{Binding ShowUnlockButton}"
-                            Background="{DynamicResource UnlockQuizGradient}"
-                            CornerRadius="5"
-                            HasShadow="False">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout>
-                                    <Label
-                                        FontSize="9"
-                                        Style="{DynamicResource lblMonumentRegular}"
-                                        Text="{Binding ChapterDetail.Name}"
-                                        TextColor="{DynamicResource White}" />
-                                    <Label
-                                        Margin="0,-12,0,0"
-                                        FontSize="28"
-                                        Style="{DynamicResource lblMonumentUltra}"
-                                        Text="{x:Static resource:DFResources.QuizzText}"
-                                        TextColor="{DynamicResource White}" />
-                                </StackLayout>
-                                <StackLayout
-                                    Grid.Column="1"
-                                    Margin="0,7,0,0"
-                                    Orientation="Horizontal"
-                                    Spacing="16">
+                            IsVisible="{Binding ShowUnlockButton}">
+                            <Frame
+                                Padding="9"
+                                Background="{DynamicResource UnlockQuizGradient}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                IsVisible="false">
+                                <Frame.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding ChapterDetail.IsQuizUnlocked}"
+                                        TargetType="Frame"
+                                        Value="true">
+                                        <Setter Property="IsVisible" Value="True" />
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
                                     <StackLayout>
-                                        <Frame
-                                            Padding="3,0,3,0"
-                                            BackgroundColor="{DynamicResource Transparent}"
-                                            BorderColor="{DynamicResource White}"
-                                            CornerRadius="5"
-                                            HasShadow="False"
-                                            HorizontalOptions="CenterAndExpand">
-                                            <Label
-                                                FontSize="11"
-                                                Style="{DynamicResource lblMonumentRegular}"
-                                                Text="{x:Static resource:DFResources.RewardText}"
-                                                TextColor="{DynamicResource White}" />
-                                        </Frame>
-                                        <StackLayout
-                                            Margin="0,-5,0,0"
-                                            HorizontalOptions="CenterAndExpand"
-                                            Orientation="Horizontal">
-                                            <Label
-                                                FontSize="11"
-                                                Style="{DynamicResource lblMonumentRegular}"
-                                                Text="50"
-                                                TextColor="{DynamicResource White}" />
-                                            <Label
-                                                FontSize="11"
-                                                Style="{DynamicResource lblMonumentRegular}"
-                                                Text="{x:Static resource:DFResources.DHNText}"
-                                                TextColor="{DynamicResource White}" />
+                                        <Label
+                                            FontSize="9"
+                                            Style="{DynamicResource lblMonumentRegular}"
+                                            Text="{Binding ChapterDetail.Name}"
+                                            TextColor="{DynamicResource White}" />
+                                        <Label
+                                            Margin="0,-12,0,0"
+                                            FontSize="28"
+                                            Style="{DynamicResource lblMonumentUltra}"
+                                            Text="{x:Static resource:DFResources.QuizzText}"
+                                            TextColor="{DynamicResource White}" />
+                                    </StackLayout>
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        Margin="0,6,0,0"
+                                        Orientation="Horizontal"
+                                        Spacing="16">
+                                        <StackLayout>
+                                            <Frame
+                                                Padding="5,1,5,1"
+                                                Background="{DynamicResource UnlockStatusGradient}"
+                                                BorderColor="{DynamicResource StatusColor}"
+                                                CornerRadius="5"
+                                                HasShadow="False"
+                                                HorizontalOptions="CenterAndExpand">
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{x:Static resource:DFResources.RewardText}"
+                                                    TextColor="{DynamicResource White}" />
+                                            </Frame>
+                                            <StackLayout
+                                                Margin="0,-5,0,0"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Orientation="Horizontal">
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{Binding ChapterDetail.RewardHundred, StringFormat='{}{0:#}'}"
+                                                    TextColor="{DynamicResource White}" />
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{x:Static resource:DFResources.DHNText}"
+                                                    TextColor="{DynamicResource White}" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout>
+                                            <Frame
+                                                Padding="5,1,5,1"
+                                                Background="{DynamicResource UnlockStatusGradient}"
+                                                BorderColor="{DynamicResource StatusColor}"
+                                                CornerRadius="5"
+                                                HasShadow="False"
+                                                HorizontalOptions="CenterAndExpand">
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{x:Static resource:DFResources.UnlockedText}"
+                                                    TextColor="{DynamicResource White}" />
+                                            </Frame>
+                                            <StackLayout
+                                                Margin="0,-5,0,0"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Orientation="Horizontal">
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{Binding ChapterDetail.RequiredJelly}"
+                                                    TextColor="{DynamicResource White}" />
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{x:Static resource:DFResources.JellyText}"
+                                                    TextColor="{DynamicResource White}" />
+                                            </StackLayout>
                                         </StackLayout>
                                     </StackLayout>
-                                    <StackLayout>
-                                        <Frame
-                                            Padding="3,0,3,0"
-                                            BackgroundColor="{DynamicResource Transparent}"
-                                            BorderColor="{DynamicResource White}"
-                                            CornerRadius="5"
-                                            HasShadow="False"
-                                            HorizontalOptions="CenterAndExpand">
-                                            <Label
-                                                FontSize="11"
-                                                Style="{DynamicResource lblMonumentRegular}"
-                                                Text="{x:Static resource:DFResources.UnlockedText}"
-                                                TextColor="{DynamicResource White}" />
-                                        </Frame>
-                                        <StackLayout
-                                            Margin="0,-5,0,0"
-                                            HorizontalOptions="CenterAndExpand"
-                                            Orientation="Horizontal">
-                                            <Label
-                                                FontSize="11"
-                                                Style="{DynamicResource lblMonumentRegular}"
-                                                Text="1"
-                                                TextColor="{DynamicResource White}" />
-                                            <Label
-                                                FontSize="11"
-                                                Style="{DynamicResource lblMonumentRegular}"
-                                                Text="{x:Static resource:DFResources.JellyText}"
-                                                TextColor="{DynamicResource White}" />
-                                        </StackLayout>
-                                    </StackLayout>
-                                </StackLayout>
-                            </Grid>
+                                </Grid>
 
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowUnlockCommand}" NumberOfTapsRequired="1" />
-                            </Frame.GestureRecognizers>
-                        </Frame>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowUnlockCommand}" NumberOfTapsRequired="1" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Frame
+                                Padding="9"
+                                Background="{DynamicResource LockedQuizGradient}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                IsVisible="false">
+                                <Frame.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding ChapterDetail.IsQuizUnlocked}"
+                                        TargetType="Frame"
+                                        Value="false">
+                                        <Setter Property="IsVisible" Value="True" />
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout>
+                                        <Label
+                                            FontSize="9"
+                                            Style="{DynamicResource lblMonumentRegular}"
+                                            Text="{Binding ChapterDetail.Name}"
+                                            TextColor="{DynamicResource DarkText}" />
+                                        <Label
+                                            Margin="0,-12,0,0"
+                                            FontSize="28"
+                                            Style="{DynamicResource lblMonumentUltra}"
+                                            Text="{x:Static resource:DFResources.QuizzText}"
+                                            TextColor="{DynamicResource White}" />
+                                    </StackLayout>
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        Margin="0,6,0,0"
+                                        Orientation="Horizontal"
+                                        Spacing="16">
+                                        <StackLayout>
+                                            <Frame
+                                                Padding="5,1,5,1"
+                                                BackgroundColor="{DynamicResource DarkStatusColor}"
+                                                BorderColor="{DynamicResource DarkStatusColor}"
+                                                CornerRadius="5"
+                                                HasShadow="False"
+                                                HorizontalOptions="CenterAndExpand">
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{x:Static resource:DFResources.RewardText}"
+                                                    TextColor="{DynamicResource White}" />
+                                            </Frame>
+                                            <StackLayout
+                                                Margin="0,-5,0,0"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Orientation="Horizontal">
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{Binding ChapterDetail.RewardHundred, StringFormat='{}{0:#}'}"
+                                                    TextColor="{DynamicResource White}" />
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{x:Static resource:DFResources.DHNText}"
+                                                    TextColor="{DynamicResource White}" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout>
+                                            <Frame
+                                                Padding="10"
+                                                Background="{DynamicResource UnlockStatusGradient}"
+                                                BorderColor="{DynamicResource StatusColor}"
+                                                CornerRadius="5"
+                                                HasShadow="False"
+                                                HorizontalOptions="CenterAndExpand">
+                                                <Label
+                                                    FontSize="11"
+                                                    Style="{DynamicResource lblMonumentRegular}"
+                                                    Text="{x:Static resource:DFResources.LockedText}"
+                                                    TextColor="{DynamicResource White}"
+                                                    VerticalOptions="CenterAndExpand" />
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding ShowUnlockCommand}" NumberOfTapsRequired="1" />
+                                                </Frame.GestureRecognizers>
+                                            </Frame>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
                     </Grid>
                 </Grid>
             </ScrollView>
@@ -560,7 +660,6 @@
                     BackgroundColor="{DynamicResource White}"
                     CornerRadius="20"
                     HasShadow="False"
-                    HeightRequest="400"
                     VerticalOptions="EndAndExpand">
                     <StackLayout>
                         <StackLayout Margin="20" IsVisible="false">
@@ -583,7 +682,7 @@
                                 <Image
                                     HeightRequest="80"
                                     HorizontalOptions="CenterAndExpand"
-                                    Source="padlock.png"
+                                    Source="munlocked.png"
                                     VerticalOptions="CenterAndExpand"
                                     WidthRequest="80" />
                             </Frame>
@@ -684,7 +783,7 @@
                                 HorizontalOptions="CenterAndExpand"
                                 HorizontalTextAlignment="Center"
                                 Style="{DynamicResource lblPoppinsRegular}"
-                                Text="{x:Static resource:DFResources.ClickHereToUlockChapteQuizText}"
+                                Text="{Binding ClickhereText}"
                                 TextColor="{DynamicResource GrayTextColor}" />
                             <StackLayout
                                 Margin="0,100,0,0"
@@ -703,7 +802,7 @@
                                         FontSize="10"
                                         HorizontalOptions="CenterAndExpand"
                                         Style="{DynamicResource lblMonumentRegular}"
-                                        Text="{x:Static resource:DFResources.UnlockedText}"
+                                        Text="{x:Static resource:DFResources.UnlockText}"
                                         TextColor="{DynamicResource White}"
                                         TextDecorations="Underline"
                                         TextTransform="Uppercase" />

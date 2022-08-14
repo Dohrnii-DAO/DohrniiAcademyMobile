@@ -4,6 +4,7 @@ using Foundation;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using ProgressRingControl.Forms.Plugin.iOS;
 using UIKit;
 using Xamarin.Forms;
 
@@ -30,6 +31,7 @@ namespace DohrniiFoundation.iOS
             Rg.Plugins.Popup.Popup.Init();
             LoadApplication(new App());
             DependencyService.Register<IPlatformHelper, PlatformHelper>();
+            ProgressRingRenderer.Init();
             return base.FinishedLaunching(app, options);
         }       
         /// <summary>

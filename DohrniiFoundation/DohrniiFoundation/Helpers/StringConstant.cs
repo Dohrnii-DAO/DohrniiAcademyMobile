@@ -45,10 +45,10 @@ namespace DohrniiFoundation.Helpers
         public const string UpdateProfileApiEndPoint = "/api/user/update/";
 
 #if DEBUG
-        //public const string APIAndroidBaseURL = "https://10.0.2.2:7188";
-        //public const string APIiOSBaseURL = "https://localhost:7188";
-        public const string APIAndroidBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
-        public const string APIiOSBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
+        public const string APIAndroidBaseURL = "https://10.0.2.2:7188";
+        public const string APIiOSBaseURL = "https://localhost:7188";
+        //public const string APIAndroidBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
+        //public const string APIiOSBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
 #else
         public const string APIAndroidBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
         public const string APIiOSBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
@@ -75,12 +75,16 @@ namespace DohrniiFoundation.Helpers
         public const string StartLessonEndPoint = "/api/lessons/start/";
         public const string CompleteLessonEndPoint = "/api/lessons/complete/";
         public const string UserProfileAPIEndPoint = "/api/user/profile";
-        public const string ChangePasswordAPIEndPoint = "/api/auth/changepassword";
-        public const string GetQuestionsEndPoint = "/api/classes/{id}/questions";
+        public const string ChangePasswordAPIEndPoint = "/api/auth/changepassword/";
+        public const string GetQuestionsEndPoint = "/api/classes/{id}/questions/";
         public const string StartClassEndPoint = "/api/classes/start/";
         public const string CompleteClassEndPoint = "/api/classes/complete/";
         public const string QuetionAttemptEndPoint = "/api/Classes/questionattempt/";
         public const string XPtoJellyEndPoint = "/api/User/convert/xptojelly/";
+        public const string UnlockQuizEndPoint = "/api/Chapters/unlockquiz/";
+        public const string GetChapterQuestionsEndPoint = "/api/Chapters/{id}/quiz/";
+        public const string QuizAttemptEndPoint = "/api/Chapters/quizattempt/";
+        public const string AwardDHNEndPoint = "/api/Chapters/awarddhn/";
 
         #endregion
 
@@ -286,6 +290,11 @@ namespace DohrniiFoundation.Helpers
         public const string PolicyIcon = "mprivacy.png";
         public const string LogoutIcon = "mlogout.png";
         public const string SupportFlag = "SupportFlag.png";
+        public const string TimerBG = "#F94B7D";
+
+        public const string failedAttempt = "failedRed.png";
+
+        public const string correctAttempt = "tick.png";
 
         public const string DefaultStatusBarColor = "#f7f7f7";
         public const string LightBlueStatusBarColor = "#9CE8FB";

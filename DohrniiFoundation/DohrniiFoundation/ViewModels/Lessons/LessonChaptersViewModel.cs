@@ -56,6 +56,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
         public bool ShowUnlockQuiz { get; set; }
         public bool ShowUnlockButton { get; set; }
         public Color LastProgressFrameColor { get; set; } = (Color)Application.Current.Resources["LessonSegmentColor"];
+        public string ClickhereText { get; set; }
         public int Position { get; set; }   
         public ClassModel ClassCurrentItem { get; set; }
         public ICommand CancelCommand { get; set; }
@@ -63,6 +64,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
         public ICommand ShowUnlockCommand { get; set; }
         public ICommand CloseUnlockCommand { get; set; }
         public ICommand StartQuizCommand { get; set; }
+        public ICommand UnlockQuizCommand { get; set; }
         public override Command BackCommand
         {
             get
@@ -96,6 +98,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
                 ShowUnlockCommand = new Command(ShowUnlockClick);
                 CloseUnlockCommand = new Command(ShowUnlockClick);
                 StartQuizCommand = new Command(StartQuizClick);
+                UnlockQuizCommand = new Command(UnlockQuizClick);
             }
             catch (Exception ex)
             {
@@ -142,6 +145,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
                 if (cacheData != null)
                 {
                     this.ChapterDetail = cacheData;
+                    this.ClickhereText = string.Format(DFResources.ClickHereToUlockChapteQuizText, ChapterDetail.RequiredJelly);
                     _appState.ChapterDetail = cacheData;
                     IsLoading = false;
                     ShowUnlockButton = true;
@@ -150,6 +154,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
                 if (chapterResponse != null)
                 {
                     this.ChapterDetail = chapterResponse;
+                    this.ClickhereText = string.Format(DFResources.ClickHereToUlockChapteQuizText, ChapterDetail.RequiredJelly);
                     _appState.ChapterDetail = chapterResponse;
                     await _cacheService.SaveChapterDetail(chapterResponse);
                 }
@@ -180,11 +185,23 @@ namespace DohrniiFoundation.ViewModels.Lessons
                 Crashes.TrackError(ex);
             }
         }
-        private void ShowUnlockClick()
+        private async void ShowUnlockClick()
         {
             try
             {
-                ShowUnlockQuiz = !ShowUnlockQuiz;
+                if (ChapterDetail.IsQuizDone)
+                {
+                    await Application.Current.MainPage.DisplayAlert(DFResources.AlertText, DFResources.QuizAlreadyTakenText, DFResources.OKText);
+                }
+                else if (ChapterDetail.IsQuizUnlocked)
+                {
+                    AppUtil.SelectedChapter = this.ChapterDetail;
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new ChapterQuestionPage());
+                }
+                else
+                {
+                    ShowUnlockQuiz = !ShowUnlockQuiz;
+                }
             }
             catch (Exception ex)
             {
@@ -194,30 +211,48 @@ namespace DohrniiFoundation.ViewModels.Lessons
         }
         private async void StartQuizClick()
         {
-            //try
-            //{
-            //    IsLoading = true;
-            //    var chapterResponse = await _lessonService.GetChapter(0);
-            //    if (chapterResponse != null)
-            //    {
-            //        this.ChapterDetail = chapterResponse;
-            //        _appState.ChapterDetail = chapterResponse;
-            //        await _cacheService.SaveChapterDetail(chapterResponse);
-            //    }
-            //    else
-            //    {
-            //        await Application.Current.MainPage.Navigation.PushModalAsync(new ResponseErrorPage());
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Crashes.TrackError(ex);
-            //}
-            //finally
-            //{
-            //    IsLoading = false;
-            //    ShowUnlockButton = true;
-            //}
+            try
+            {
+                ShowUnlockQuiz = false;
+                AppUtil.SelectedChapter = this.ChapterDetail;
+                await Application.Current.MainPage.Navigation.PushModalAsync(new ChapterQuestionPage());
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+        }
+        private async void UnlockQuizClick()
+        {
+            try
+            {
+                IsLoading = true;
+
+                var resp = await _lessonService.UnlockChapterQuiz(new UnlockQuizModel { ChapterId = ChapterDetail.Id });
+                if (resp != null)
+                {
+                    this.ChapterDetail.IsQuizUnlocked = true;
+                    _appState.ChapterDetail = this.ChapterDetail;
+                    await _cacheService.SaveChapterDetail(this.ChapterDetail);
+                    AppUtil.CurrentUser = resp;
+                    var login = await _cacheService.GetCurrentUser();
+                    login.User = resp;
+                    await _cacheService.SaveCurrentUser(login);
+                    _messenger.Send(new UpdateLessonScreen());
+                }
+                else
+                {
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new ResponseErrorPage());
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
         private async void ContinueClick()
         {

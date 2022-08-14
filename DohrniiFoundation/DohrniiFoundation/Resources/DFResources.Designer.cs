@@ -360,7 +360,7 @@ namespace DohrniiFoundation.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click button below to unlock this chapter quiz.
+        ///   Looks up a localized string similar to Click button below to unlock this chapter quiz with {0} crypto jelly.
         /// </summary>
         internal static string ClickHereToUlockChapteQuizText {
             get {
@@ -1669,6 +1669,24 @@ namespace DohrniiFoundation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have already taken this chapter quiz.
+        /// </summary>
+        internal static string QuizAlreadyTakenText {
+            get {
+                return ResourceManager.GetString("QuizAlreadyTakenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quiz Results.
+        /// </summary>
+        internal static string QuizResultText {
+            get {
+                return ResourceManager.GetString("QuizResultText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quiz.
         /// </summary>
         internal static string QuizText {
@@ -2011,11 +2029,29 @@ namespace DohrniiFoundation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can only take this quiz once. Make sure you are ready to take this before you click on start button..
+        /// </summary>
+        internal static string StartQuizInfoText {
+            get {
+                return ResourceManager.GetString("StartQuizInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Quiz.
         /// </summary>
         internal static string StartQuizText {
             get {
                 return ResourceManager.GetString("StartQuizText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        internal static string StartText {
+            get {
+                return ResourceManager.GetString("StartText", resourceCulture);
             }
         }
         

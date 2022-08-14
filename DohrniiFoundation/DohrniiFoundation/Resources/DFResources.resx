@@ -937,12 +937,24 @@ Tempor tortor donec sed purus. Pellentesque scelerisque aliquam nisi id adipisci
     <value>You don't have enought XP to convert to {0} Crypto Jelly</value>
   </data>
   <data name="ClickHereToUlockChapteQuizText" xml:space="preserve">
-    <value>Click button below to unlock this chapter quiz</value>
+    <value>Click button below to unlock this chapter quiz with {0} crypto jelly</value>
   </data>
   <data name="StartQuizText" xml:space="preserve">
     <value>Start Quiz</value>
   </data>
   <data name="UnlockQuizSubtitle" xml:space="preserve">
     <value>You can now start quiz by clicking on start button</value>
+  </data>
+  <data name="QuizAlreadyTakenText" xml:space="preserve">
+    <value>You have already taken this chapter quiz</value>
+  </data>
+  <data name="QuizResultText" xml:space="preserve">
+    <value>Quiz Results</value>
+  </data>
+  <data name="StartQuizInfoText" xml:space="preserve">
+    <value>You can only take this quiz once. Make sure you are ready to take this before you click on start button.</value>
+  </data>
+  <data name="StartText" xml:space="preserve">
+    <value>Start</value>
   </data>
 </root>

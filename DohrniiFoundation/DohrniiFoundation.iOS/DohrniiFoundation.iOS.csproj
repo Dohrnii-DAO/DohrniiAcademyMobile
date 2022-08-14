@@ -300,6 +300,9 @@
     <PackageReference Include="Xam.Plugin.Media">
       <Version>5.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugins.Forms.ProgressRing">
+      <Version>0.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Auth">
       <Version>1.7.0</Version>
     </PackageReference>
@@ -578,5 +581,11 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\munlocked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\failedRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\BackArrowWhite.png" />
   </ItemGroup>
 </Project>
