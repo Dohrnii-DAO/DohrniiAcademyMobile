@@ -94,7 +94,7 @@ namespace DohrniiFoundation.ViewModels.Lessons
                 var rst = await UserDialogs.Instance.ConfirmAsync(DFResources.StartQuizInfoText,DFResources.AlertText,DFResources.StartText,DFResources.CancelText);
                 if (rst)
                 {
-                    QuizDuration = DateTime.UtcNow.AddSeconds(SelectedChapter.TimeLimit);
+                    QuizDuration = DateTime.UtcNow.AddMinutes(SelectedChapter.TimeLimit);
                     Device.StartTimer(new TimeSpan(0, 0, 1), () =>
                     {
                         var timespan = QuizDuration - DateTime.UtcNow;
