@@ -45,10 +45,10 @@ namespace DohrniiFoundation.Helpers
         public const string UpdateProfileApiEndPoint = "/api/user/update/";
 
 #if DEBUG
-        public const string APIAndroidBaseURL = "https://10.0.2.2:7188";
-        public const string APIiOSBaseURL = "https://localhost:7188";
-        //public const string APIAndroidBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
-        //public const string APIiOSBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
+        //public const string APIAndroidBaseURL = "https://10.0.2.2:7188";
+        //public const string APIiOSBaseURL = "https://localhost:7188";
+        public const string APIAndroidBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
+        public const string APIiOSBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
 #else
         public const string APIAndroidBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";
         public const string APIiOSBaseURL = "https://dohrniiacademybackoffice.azurewebsites.net";

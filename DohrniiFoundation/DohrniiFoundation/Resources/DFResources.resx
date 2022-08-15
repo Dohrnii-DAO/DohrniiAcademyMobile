@@ -957,4 +957,7 @@ Tempor tortor donec sed purus. Pellentesque scelerisque aliquam nisi id adipisci
   <data name="StartText" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="NotEnoughJellyText" xml:space="preserve">
+    <value>You don't have enough jelly to unlock this quiz</value>
+  </data>
 </root>

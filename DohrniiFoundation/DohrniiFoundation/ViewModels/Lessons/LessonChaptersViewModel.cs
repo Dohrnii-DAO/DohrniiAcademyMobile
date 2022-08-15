@@ -227,22 +227,27 @@ namespace DohrniiFoundation.ViewModels.Lessons
             try
             {
                 IsLoading = true;
-
-                var resp = await _lessonService.UnlockChapterQuiz(new UnlockQuizModel { ChapterId = ChapterDetail.Id });
-                if (resp != null)
+                if(AppUtil.CurrentUser.TotalJelly >= this.ChapterDetail.RequiredJelly)
                 {
-                    this.ChapterDetail.IsQuizUnlocked = true;
-                    _appState.ChapterDetail = this.ChapterDetail;
-                    await _cacheService.SaveChapterDetail(this.ChapterDetail);
-                    AppUtil.CurrentUser = resp;
-                    var login = await _cacheService.GetCurrentUser();
-                    login.User = resp;
-                    await _cacheService.SaveCurrentUser(login);
-                    _messenger.Send(new UpdateLessonScreen());
+                    var resp = await _lessonService.UnlockChapterQuiz(new UnlockQuizModel { ChapterId = ChapterDetail.Id });
+                    if (resp != null)
+                    {
+                        this.ChapterDetail.IsQuizUnlocked = true;
+                        _appState.ChapterDetail = this.ChapterDetail;
+                        await _cacheService.SaveChapterDetail(this.ChapterDetail);
+                        AppUtil.CurrentUser = resp;
+                        var login = await _cacheService.GetCurrentUser();
+                        login.User = resp;
+                        await _cacheService.SaveCurrentUser(login);
+                        _messenger.Send(new UpdateLessonScreen());
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.Navigation.PushModalAsync(new ResponseErrorPage());
+                    }
                 }
-                else
-                {
-                    await Application.Current.MainPage.Navigation.PushModalAsync(new ResponseErrorPage());
+                else {
+                    await Application.Current.MainPage.DisplayAlert(DFResources.AlertText, DFResources.NotEnoughJellyText, DFResources.OKText);
                 }
             }
             catch (Exception ex)
